@@ -3,16 +3,17 @@ clear;close all;clc;
 fitbitExportData = importfile('fitbit_export_20180913.xls','Activities',1,32);
 
 %% Group data
+fitbitData = [];
 for i = 2:size(fitbitExportData)
     dayChar = cell2mat(fitbitExportData{i,1});
-    dayDatetime = datetime(dayChar,'InputFormat','dd-mm-yyyy')
+    dayDatetime = datetime(dayChar,'InputFormat','dd-MM-yyyy');
+    fitbitData(i-1,:) = fitbitExportData{i,vartype('string')};
     if  isweekend(dayDatetime)
-        weekendData(size(weekendData),:) = fitbitExportData(i,:);
+        fitbitData(size(fitbitData,1),1) = 1;
     else 
-        weekdayData(size(weekdayData),:) = fitbitExportData(i,:);
+        fitbitData(size(fitbitData,1),1) = 0;
     end   
 end
-
 
 function tableout = importfile(workbookFile,sheetName,startRow,endRow)
 %IMPORTFILE Import data from a spreadsheet
@@ -64,10 +65,10 @@ tableout.Date = stringVectors(:,1);
 tableout.CaloriesBurned = stringVectors(:,2);
 tableout.Steps = stringVectors(:,3);
 tableout.Distance = stringVectors(:,4);
-tableout.Floors = categorical(stringVectors(:,5));
+tableout.Floors = stringVectors(:,5);
 tableout.MinutesSedentary = stringVectors(:,6);
 tableout.MinutesLightlyActive = stringVectors(:,7);
-tableout.MinutesFairlyActive = categorical(stringVectors(:,8));
-tableout.MinutesVeryActive = categorical(stringVectors(:,9));
+tableout.MinutesFairlyActive = stringVectors(:,8);
+tableout.MinutesVeryActive = stringVectors(:,9);
 tableout.ActivityCalories = stringVectors(:,10);
 end
