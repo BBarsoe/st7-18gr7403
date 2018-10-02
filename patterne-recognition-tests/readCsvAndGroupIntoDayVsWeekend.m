@@ -1,6 +1,6 @@
 clear;close all;clc;
 %% Import data
-fitbitExportData = importfile('fitbit_export_20180913.xls','Activities',1,32);
+fitbitExportData = importfile('fitbit_export_20180913.xls','Activities');
 
 %% Group data
 fitbitData = [];
