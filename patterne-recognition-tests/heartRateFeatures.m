@@ -47,6 +47,7 @@ clear windowSize startIndex totalTime pointLength tmpResult1 tmpResult2 timeDiff
 
 %% Slope Sign Change
 heartRateSlopeChange = logical(heartRateDerivative);
+heartRateSlopeChange_2 = SlopeSignChange(heartRateDerivative);
 
 %% Mean absolute value
 heartRateMovAbsMean = movmean(abs(heartRateDerivative),[1000 0]);
@@ -68,3 +69,15 @@ plot(dateTime(1:end-1),heartRateSlopeChange)
 
 subplot(2,2,4)
 plot(dateTime(1:end-1),heartRateMovMean)
+
+
+%% Slope sign change function
+function ssc = SlopeSignChange(x)
+ssc=0;
+for i=2:length(x)-1;
+temp = sign((x(i)-x(i-1)) * (x(i)-x(i+1)));
+    if temp > 0
+        ssc = ssc + 1;
+    end
+end
+end
