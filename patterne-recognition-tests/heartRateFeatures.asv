@@ -1,8 +1,8 @@
 clear;close all;clc;
 %% Import data
 fitbitExportData = importfile('Fitbit-dataset-Jacob.csv');
-heartRate = fitbitExportData{:,2};
-dateTime = fitbitExportData{:,1};
+heartRate = fitbitExportData{71441:100918,2};
+dateTime = fitbitExportData{71441:100918,1};
 
 %% Create features
 heartRateDerivative = diff(heartRate);
@@ -29,6 +29,9 @@ for index = 1:size(heartRateDerivative)-1
     totalTime = totalTime + timeDiff;
     % If more than 300 seconds has been calculated
     if totalTime/windowSize >= 1
+        if timeDiff > 60 
+            
+        end
         %Save the current wavelenght
         tmpResult1(startIndex,1) = pointLength;
         %Save the current timestamp
@@ -49,10 +52,7 @@ clear windowSize startIndex totalTime pointLength tmpResult1 tmpResult2 timeDiff
 heartRateSlopeChange = logical(heartRateDerivative);
 
 %% Mean absolute value
-heartRateMovAbsMean = movmean(abs(heartRateDerivative),[1000 0]);
-
-%% Mean values trailing
-heartRateMovMean = movmean(heartRateDerivative,[1000 0]);
+heartRateMovMean = movmean(abs(heartRateDerivative),[1000 0]);
 
 %% Plot data
 subplot(2,2,1)
