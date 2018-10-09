@@ -1,0 +1,36 @@
+clear; close all; clc;
+%% Steps
+% Import data
+rawStep = importSteps('Jacob_Steps.xlsx');
+
+%% Convert to datetime
+rawStep(1,:) = [];
+stepData = table('Size',[height(rawStep) 2],'VariableTypes',["datetime","double"],'VariableNames',["Time","Steps"]);
+for i = 1:height(rawStep)
+   stepData{i,1} = datetime(rawStep{i,1},'InputFormat','yyyy-MM-dd HH:mm:ss');
+   stepData{i,2} = rawStep{i,2};
+end
+
+%% Plot steps per time
+figure(1)
+plot(stepData{:,1},stepData{:,2});
+grid on
+
+%% Features
+step = stepData{:,2};
+step_diff = diff(step);
+step_diff_movmax = movmax(step_diff,1200);
+step_diff_movmin = movmin(step_diff,1200);
+step_median = movmedian(step,1200);
+step_movmean = movmean(step,1200);
+step_movmax = movmax(step,1200);
+step_movmin = movmin(step,1200);
+Step_Data_table = table(step(1:end-1),step_diff,step_diff_movmax,step_diff_movmin,step_median(1:end-1),step_movmean(1:end-1),step_movmax(1:end-1)
+
+Data_table = table(heart(1:end-1),heart_diff, heart_diff_movmax,heart_diff_movmean,heart_diff_movmin,heart_median(1:end-1),heart_movmean(1:end-1),heart_movmin(1:end-1),heart_movmax(1:end-1),Dataset.sleep(1:end-1));
+Data_table.Properties.VariableNames{1} = 'heart';
+Data_table.Properties.VariableNames{6} = 'heart_median';
+Data_table.Properties.VariableNames{7} = 'heart_movmean';
+Data_table.Properties.VariableNames{8} = 'heart_movmin';
+Data_table.Properties.VariableNames{9} = 'heart_movmax';
+Data_table.Properties.VariableNames{10} = 'sleep';
