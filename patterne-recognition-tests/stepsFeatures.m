@@ -23,7 +23,7 @@ step_diff_movmean = movmean(step_diff,60);
 step_diff_movmax = movmax(step_diff,60);
 step_diff_movmin = movmin(step_diff,60);
 step_median = movmedian(step,60);
-step_movmean = movmean(step,60);
+step_movmean = movmean(step,120);
 step_movmax = movmax(step,60);
 step_movmin = movmin(step,60); %Denne vil altid være nul
 
@@ -33,3 +33,17 @@ Step_Data_table.Properties.VariableNames{6} = 'step_median';
 Step_Data_table.Properties.VariableNames{7} = 'step_movmean';
 Step_Data_table.Properties.VariableNames{8} = 'step_movmax';
 Step_Data_table.Properties.VariableNames{9} = 'step_movmin';
+
+%% Plot 
+figure(2)
+plot(stepData{1:end-1,1},step_diff);
+grid on; hold on; xlabel('Time'); ylabel('Steps');
+plot(stepData{:,1},step_movmean,'r');
+hold on;
+plot(stepData{:,1},step_median,'g');
+
+%% 25th and 75th percentile
+
+prctile_25 = prctile(step_movmean,25);
+prctile_75 = prctile(step_movmean,75);
+
