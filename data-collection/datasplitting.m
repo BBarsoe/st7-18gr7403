@@ -5,7 +5,7 @@ imported_dataset.Properties.VariableNames{2} = 'heart';
 [minute_number,minutes_time] = discretize(imported_dataset.Date,'minute');%Inddeler data i minut intervaller
 minutes_time = minutes_time';%Vender matricen fra 1 række til 1 kolonne
 %imported_dataset.minute = minute_number; Ved ikke lige hvorfor den her er der
-G = findgroups(imported_dataset.minute);%Grupperer heart data i minutter
+G = findgroups(minute_number);%Grupperer heart data i minutter
 heartsplit = splitapply(@mean,imported_dataset.heart,G);%gns heart pr. minut
 
 k = 1;
