@@ -1,5 +1,5 @@
 clear;clc;close all;
-imported_dataset = importfile('Fitbit-dataset-Jacob.csv',1,393683);%Importerer datasættet der bruges
+imported_dataset = importfile('Heart_0110-0410_Jacob.csv',1,393683);%Importerer datasættet der bruges
 imported_dataset.Properties.VariableNames{1} = 'Date';%Sørger for at kolonnerne har variabelnavne til scriptet
 imported_dataset.Properties.VariableNames{2} = 'heart';
 [minute_number,minutes_time] = discretize(imported_dataset.Date,'minute');%Inddeler data i minut intervaller
