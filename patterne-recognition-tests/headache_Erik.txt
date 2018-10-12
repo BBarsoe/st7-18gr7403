@@ -1,0 +1,6 @@
+2018-09-19 1600 medium hovedpine
+2018-09-19 2100  stop hovedpine
+2018-09-26 1210 small hovedpine
+2018-09-26 1430 stop hovedpine
+2018-09-28 1715 large hovedpine
+2018-09-28 1815 stop hovedpine
