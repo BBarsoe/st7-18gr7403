@@ -151,8 +151,11 @@ heart_movmin = movmin(heart,window_size);
 heart_movmax = movmax(heart,window_size);
 heart_movstd = movstd(heart,window_size);
 Date_time = hms(data.Date);
-% delay heart features
-delay_heart_data = delayseq(heart,15); % delay heart 15 min 
+% delay heart features 
+delay_heart_5 = delayseq(heart(2:end),5); % delay heart 5 min
+delay_heart_15 = delayseq(heart(2:end),15); % delay heart 15 min
+delay_heart_60 = delayseq(heart(2:end),60); % delay heart 60 min
+delay_heart_300 = delayseq(heart(2:end),300); % delay heart 5 hours
 
 %% features for steps
 steps = Step_Data.steps(1:end);
@@ -163,9 +166,12 @@ steps_movmin = movmin(steps,window_size);
 steps_movmax = movmax(steps,window_size);
 steps_movstd = movstd(steps,window_size);
 % delay step feature
-delay_steps_data = delayseq(steps,15); % delay step 15 min
+delay_steps_5 = delayseq(steps,5); % delay step 5 min
+delay_steps_15 = delayseq(steps,15); % delay step 15 min
+delay_steps_60 = delayseq(steps,60); % delay step 60 min
+delay_steps_300 = delayseq(steps,300); % delay step 5 hours
 %% Make a table
-Data_table = table(Date_time(1:end-1),heart(1:end-1),heart_diff, heart_diff_movmax,heart_diff_movmean,heart_diff_movmin,heart_median(1:end-1),heart_movmean(1:end-1),heart_movmin(1:end-1),heart_movmax(1:end-1),heart_movstd(1:end-1),steps(1:end-1),steps_diff,steps_movmean(1:end-1),steps_movmedian(1:end-1),steps_movmin(1:end-1),steps_movmax(1:end-1),steps_movstd(1:end-1),data.headache(1:end-1));
+Data_table = table(Date_time(1:end-1),heart(1:end-1),heart_diff, heart_diff_movmax,heart_diff_movmean,heart_diff_movmin,heart_median(1:end-1),heart_movmean(1:end-1),heart_movmin(1:end-1),heart_movmax(1:end-1),heart_movstd(1:end-1),steps(1:end-1),steps_diff,steps_movmean(1:end-1),steps_movmedian(1:end-1),steps_movmin(1:end-1),steps_movmax(1:end-1),steps_movstd(1:end-1),delay_heart_15,delay_steps_15(1:end-1),data.headache(1:end-1));
 Data_table.Properties.VariableNames{1} = 'hour';
 Data_table.Properties.VariableNames{2} = 'heart';
 Data_table.Properties.VariableNames{7} = 'heart_median';
@@ -179,12 +185,17 @@ Data_table.Properties.VariableNames{15} = 'steps_movmedian'; %Tilføjet
 Data_table.Properties.VariableNames{16} = 'steps_movmin';
 Data_table.Properties.VariableNames{17} = 'steps_movmax';
 Data_table.Properties.VariableNames{18} = 'steps_movstd';
-Data_table.Properties.VariableNames{19} = 'headache';
+Data_table.Properties.VariableNames{20} = 'delay_steps_15';
+Data_table.Properties.VariableNames{21} = 'headache';
+% Data_table(1:5,1) =[]; % Delete the first 5 miniuts of data 
+Data_table(1:15,1) =[]; % Delete the first 15 miniuts of data 
+% Data_table(1:60,1) =[]; % Delete the first 60 miniuts of data 
+% Data_table(1:300,1) =[]; % Delete the first 5 hours of data 
 %% splitting the data into train and test dataset
 trainLabelVec = (Data_table.headache(1:35000));
-trainSamples = table2array(Data_table(1:35000,1:16));
+trainSamples = table2array(Data_table(1:35000,1:20));
 testLabelVec = Data_table.headache(35001:end);
-testSamples = table2array(Data_table(35001:end,1:16));
+testSamples = table2array(Data_table(35001:end,1:20));
 %% Classify
 treeModel = fitctree(trainSamples,trainLabelVec); %% using decission tree as a classifiyer 
 partitionedModel = crossval(treeModel, 'KFold', 5); %% using cross validation to validate the classifiyer
