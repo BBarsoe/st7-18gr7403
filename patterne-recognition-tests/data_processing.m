@@ -1,7 +1,7 @@
  clear all
  close all
  clc
- %% Load data
+ %% Load heart data
 imported_dataset = importfile('female_data_heart.csv',2,500000);%Importerer datasættet der bruges
 imported_dataset.Properties.VariableNames{1} = 'Date';%Sørger for at kolonnerne har variabelnavne til scriptet
 imported_dataset.Properties.VariableNames{2} = 'heart';
@@ -37,7 +37,7 @@ for i = 2:height(imported_dataset)%Hele datasættet uden NaN på række 1
         lasttime = i;%Nulstiller nævneren
     end
 end
-
+%% load step data
 Step_Data = importfile('female_data_steps.csv',2,70561);
 Step_Data.Properties.VariableNames{1} = 'Date';%Sørger for at kolonnerne har variabelnavne til scriptet
 Step_Data.Properties.VariableNames{2} = 'steps';
