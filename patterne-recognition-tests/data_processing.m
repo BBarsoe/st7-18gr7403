@@ -151,6 +151,8 @@ heart_movmin = movmin(heart,window_size);
 heart_movmax = movmax(heart,window_size);
 heart_movstd = movstd(heart,window_size);
 Date_time = hms(data.Date);
+% delay heart features
+delay_heart_data = delayseq(heart,15); % delay heart 15 min 
 
 %% features for steps
 steps = Step_Data.steps(1:end);
@@ -160,6 +162,8 @@ steps_movmedian = movmedian(steps,window_size); %Tilføjet
 steps_movmin = movmin(steps,window_size);
 steps_movmax = movmax(steps,window_size);
 steps_movstd = movstd(steps,window_size);
+% delay step feature
+delay_steps_data = delayseq(steps,15); % delay step 15 min
 %% Make a table
 Data_table = table(Date_time(1:end-1),heart(1:end-1),heart_diff, heart_diff_movmax,heart_diff_movmean,heart_diff_movmin,heart_median(1:end-1),heart_movmean(1:end-1),heart_movmin(1:end-1),heart_movmax(1:end-1),heart_movstd(1:end-1),steps(1:end-1),steps_diff,steps_movmean(1:end-1),steps_movmedian(1:end-1),steps_movmin(1:end-1),steps_movmax(1:end-1),steps_movstd(1:end-1),data.headache(1:end-1));
 Data_table.Properties.VariableNames{1} = 'hour';
