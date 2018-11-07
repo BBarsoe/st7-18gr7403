@@ -202,10 +202,10 @@ Data_table.Properties.VariableNames{17} = 'steps_movmax';
 Data_table.Properties.VariableNames{18} = 'steps_movstd';
 Data_table.Properties.VariableNames{20} = 'delay_steps_15';
 Data_table.Properties.VariableNames{21} = 'headache';
-% Data_table(1:5,1) =[]; % Delete the first 5 miniuts of data 
-Data_table(1:15,1) =[]; % Delete the first 15 miniuts of data 
-% Data_table(1:60,1) =[]; % Delete the first 60 miniuts of data 
-% Data_table(1:300,1) =[]; % Delete the first 5 hours of data 
+% Data_table(1:5,:) =[]; % Delete the first 5 miniuts of data 
+Data_table(1:15,:) =[]; % Delete the first 15 miniuts of data 
+% Data_table(1:60,:) =[]; % Delete the first 60 miniuts of data 
+% Data_table(1:300,:) =[]; % Delete the first 5 hours of data 
 %% splitting the data into train and test dataset
 trainLabelVec = (Data_table.headache(1:35000));
 trainSamples = table2array(Data_table(1:35000,1:20));
