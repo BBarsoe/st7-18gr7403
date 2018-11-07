@@ -120,13 +120,16 @@ table_heart_step.Properties.VariableNames{2} = 'heart';
 table_heart_step.Properties.VariableNames{3} = 'steps';
 table_heart_step.Properties.VariableNames{4} = 'headache';
 %% Load Sleep data
-sleep_file = importfile_sleep('female_sleep_20181010.csv',3,29);
-sleepData = table('Size',[height(sleep_file) 2],'VariableTypes',["datetime","datetime"],'VariableNames',["BedTime","WakeTime"]);
-for i = 1:height(sleep_file) %The for-loop converts time from type String to DateTime, and from AM/PM to 24h.
-    sleepData{i,1} = datetime(datestr(datenum(sleep_file{i,1}, 'dd-mm-yyyy HH:MM AM'), 'yyyy-mm-dd-HH-MM-SS'),'InputFormat','yyyy-MM-dd-HH-mm-ss');
-    sleepData{i,2} = datetime(datestr(datenum(sleep_file{i,2}, 'dd-mm-yyyy HH:MM AM'), 'yyyy-mm-dd-HH-MM-SS'),'InputFormat','yyyy-MM-dd-HH-mm-ss');
+femalesleep20181102(1,:) = [];
+
+sleep = importfile('female_sleep_20181102.csv',1,24);
+
+sleepData = table('Size',[height(femalesleep20181102) 2],'VariableTypes',["datetime","datetime"],'VariableNames',["BedTime","WakeTime"]);
+for i = 1:height(femalesleep20181102) %The for-loop converts time from type String to DateTime, and from AM/PM to 24h.
+    sleepData{i,1} = datetime(datestr(datenum(femalesleep20181102{i,1}, 'dd-mm-yyyy HH:MM AM'), 'yyyy-mm-dd-HH-MM-SS'),'InputFormat','yyyy-MM-dd-HH-mm-ss');
+    sleepData{i,2} = datetime(datestr(datenum(femalesleep20181102{i,2}, 'dd-mm-yyyy HH:MM AM'), 'yyyy-mm-dd-HH-MM-SS'),'InputFormat','yyyy-MM-dd HH:mm');
 end
-clear i sleep_file
+clear i femalesleep20181102
 sleepData = sortrows(sleepData); %Sort the columns "Ascend"
 %% Features of sleeptime
 for i= 1:height(sleepData)
