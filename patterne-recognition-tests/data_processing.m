@@ -129,11 +129,20 @@ end
 clear i sleep_file
 sleepData = sortrows(sleepData); %Sort the columns "Ascend"
 %% Features of sleeptime
+%1 when sleeping, 0 when awake
 for i= 1:height(sleepData)
     s_s = find(data.Date==(sleepData{i,1}));
     s_e = find(data.Date==(sleepData{i,2}));
     data.sleep(s_s:s_e)=ones;
 end
+%Moving sleep average over the last week
+for i= 1:height(sleepData)
+    day = find(data.Date==(sleepData{i,2}));
+    %etime giver resultat i sekunder, omregnes derfor til minutter
+    data.SleepAmount(day)=(etime(datevec(datenum(sleepData{i,2})),datevec(datenum(sleepData{i,1}))))/60; 
+end
+sleep = data.SleepAmount;
+sleep_movmean = movmean(sleep,'de sidste syv dage');
 %% FFT
 % Fs = 100;   
 % L = length(Dataset.heart(2:end));
