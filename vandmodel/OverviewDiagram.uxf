@@ -1,0 +1,2754 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>320</x>
+      <y>150</y>
+      <w>180</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+InitialVol
+
++ TissueH2O.InitialVol
++ PlasmaVol.InitialVol
++ RBCH2O.InitialVol
++ ExternalH2O.InitialCore
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>550</x>
+      <y>340</y>
+      <w>180</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+Gain
+
++ GILumenVolume.Intake
++ MetabolicH2O.Rate
++ IVDrip.H2ORate
++ Transfusion.Rate</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>20</x>
+      <y>340</y>
+      <w>250</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+Loss
+
++ CD_H2O.Outflow
++ SweatDuct.H2OOutflow
++ Hemorrhage.Rate
++ DialyzerActivity.UltrafiltrationRate
++ HeatInsensibleSkin.H2O
++ HeatInsensibleLung.H2O
++ GILumenVomitus.H2OLoss
++ GILumenDiarrhea.H2OLoss</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>260</x>
+      <y>350</y>
+      <w>80</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>320</x>
+      <y>340</y>
+      <w>190</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+Vol
+
++ TissueH2O.Vol
++ PlasmaVol.Vol
++ RBCH2O.Vol
++ ExternalH2O.Core</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>360</x>
+      <y>270</y>
+      <w>70</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+1 time!</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>810</x>
+      <y>120</y>
+      <w>260</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>GlLumenVolumen
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>830</x>
+      <y>150</y>
+      <w>220</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+Intake
+
++ DietIntakeH2O.Rate(mL/Min)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>720</x>
+      <y>160</y>
+      <w>130</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;200.0;60.0;200.0;60.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>1100</x>
+      <y>120</y>
+      <w>260</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>DietIntakeH2O
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1120</x>
+      <y>150</y>
+      <w>220</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+Rate(mL/Min)
+
+1000.0 
+* Rate(L/Day) 
+* DietFeeding.Fraction</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1120</x>
+      <y>300</y>
+      <w>220</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+Rate(L/Day)
+
++ DietThirst.Rate(L/Day)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1040</x>
+      <y>160</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1220</x>
+      <y>240</y>
+      <w>30</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>1460</x>
+      <y>190</y>
+      <w>440</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>DietThirst
+valign=top
+fg=red
+bg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1480</x>
+      <y>230</y>
+      <w>400</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+Rate(L/Day)
+
++ Rate(L/Day) = [ OsmBody.[Osm(mOsm/L)]-Osmoreceptors ] 
+
+CURVE: x,y,slope
+[233,0,0]
+[253,2,0.2]
+[313,30,0]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1330</x>
+      <y>280</y>
+      <w>170</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+1L/Day</panel_attributes>
+    <additional_attributes>10.0;70.0;60.0;70.0;60.0;10.0;150.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>1460</x>
+      <y>0</y>
+      <w>610</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>DietFeeding
+valign=top
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1480</x>
+      <y>30</y>
+      <w>570</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+Fraction
+
+If Eating, 
+ + Fraction = 1/(DailyPlannerControl.MealDuration * DailyPlannerSchedule.MealsCount)
+If Between meals
+ + Fraction = 0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1460</x>
+      <y>420</y>
+      <w>440</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>style=wordwrap
+fg=red
+bg=gray
+The function is ment to regulate the water intake during the day i accord to the thirst. Thirst is assumed to have no impact on the amount of food ingested, and therefor is the fucntion reduced to a static input of 1 L/Day. So that a total water intake is equal to 1 L pr. day or 16mL/kg body weight, according to Anatomy and Physiology 9th edition page 1004.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1580</x>
+      <y>380</y>
+      <w>30</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>550</x>
+      <y>520</y>
+      <w>180</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+fg=red
+bg=gray
+Recorded water intake
+
++ Rate(mL/min)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>630</x>
+      <y>460</y>
+      <w>30</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1330</x>
+      <y>80</y>
+      <w>170</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;110.0;60.0;110.0;60.0;10.0;150.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>2100</x>
+      <y>0</y>
+      <w>200</w>
+      <h>490</h>
+    </coordinates>
+    <panel_attributes>DailyPlannerSchedule
+valign=top
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>1910</x>
+      <y>200</y>
+      <w>160</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>DailyPlannerControl
+valign=top
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1930</x>
+      <y>230</y>
+      <w>120</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+MealDuration = 30</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>2120</x>
+      <y>40</y>
+      <w>160</w>
+      <h>430</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+MealsCount
+
+00 - 01 = 0
+01 - 02 = 0
+02 - 03 = 0
+03 - 04 = 0
+04 - 05 = 0
+05 - 06 = 0
+06 - 07 = 1
+07 - 08 = 4
+08 - 09 = 2
+09 - 10 = 2
+10 - 11 = 2
+11 - 12 = 2
+12 - 13 = 4
+13 - 14 = 2
+14 - 15 = 2
+15 - 16 = 2
+16 - 17 = 2
+17 - 18 = 1
+18 - 19 = 4
+19 - 20 = 1
+20 - 21 = 1
+21 - 22 = 1
+22 - 23 = 0
+23 - 00 = 0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2040</x>
+      <y>70</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1910</x>
+      <y>140</y>
+      <w>40</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0;20.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>810</x>
+      <y>270</y>
+      <w>260</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>MetabolicH2O
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>880</x>
+      <y>430</y>
+      <w>110</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+K
+
++ K = 0.000176</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>830</x>
+      <y>310</y>
+      <w>220</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+Rate
+
++ K 
+* Metabolism-CaloriesUsed.Total</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>720</x>
+      <y>320</y>
+      <w>130</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;70.0;60.0;70.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>920</x>
+      <y>370</y>
+      <w>30</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>810</x>
+      <y>560</y>
+      <w>1000</w>
+      <h>690</h>
+    </coordinates>
+    <panel_attributes>Metabolism-CaloriesUsed 
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>830</x>
+      <y>580</y>
+      <w>110</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+Total
+
++ TotalHeat
++ TotalMotion</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1060</x>
+      <y>690</y>
+      <w>170</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+TotalHeat
+
++ CoreHeat 
++ SkeletalMuscleHeat 
++ SkinHeat </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>830</x>
+      <y>820</y>
+      <w>330</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+fg=red
+bg=gray
+CoreHeat
+
++ Brain-Metabolism.TotalCalsUsed
++ Bone-Metabolism.TotalCalsUsed
++ Fat-Metabolism.TotalCalsUsed
++ GITract-Metabolism.TotalCalsUsed
++ Kidney-Metabolism.TotalCalsUsed
++ LeftHeart-Metabolism.TotalCalsUsed
++ Liver-Metabolism.TotalCalsUsed
++ OtherTissue-Metabolism.TotalCalsUsed
++ RespiratoryMuscle-Metabolism.TotalCalsUsed
++ RightHeart-Metabolism.TotalCalsUsed
+-CoreMotion</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>900</x>
+      <y>1070</y>
+      <w>290</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+fg=red
+bg=gray
+SkeletalMuscleHeat
+
++ SkeletalMuscle-Metabolism.TotalCalsUsed
+- SkeletalMuscleMotion</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>980</x>
+      <y>1180</y>
+      <w>230</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+fg=red
+bg=gray
+SkinHeat 
+
++ Skin-Metabolism.TotalCalsUsed</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>840</x>
+      <y>370</y>
+      <w>30</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;210.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1130</x>
+      <y>770</y>
+      <w>30</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1160</x>
+      <y>770</y>
+      <w>30</w>
+      <h>320</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;300.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1190</x>
+      <y>770</y>
+      <w>30</w>
+      <h>430</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;410.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>840</x>
+      <y>650</y>
+      <w>260</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0;240.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1260</x>
+      <y>690</y>
+      <w>170</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+TotalMotion 
+
++ CoreMotion 
++ SkeletalMuscleMotion 
++ SkinMotion </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>930</x>
+      <y>620</y>
+      <w>380</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;360.0;10.0;360.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1320</x>
+      <y>820</y>
+      <w>260</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+CoreMotion  
+
++ RespiratoryMuscle-Work.MotionCals
++ RightHeart-Work.MotionCals
++ LeftHeart-Work.MotionCals</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1290</x>
+      <y>940</y>
+      <w>290</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+SkeletalMuscleMotion 
+
++ SkeletalMuscle-Work.MotionCals</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1260</x>
+      <y>1050</y>
+      <w>230</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+SkinMotion  
+
++ SkinMotion = 0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1330</x>
+      <y>770</y>
+      <w>30</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1300</x>
+      <y>770</y>
+      <w>30</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1270</x>
+      <y>770</y>
+      <w>30</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;280.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>1870</x>
+      <y>560</y>
+      <w>270</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>RespiratoryMuscle-Work
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1890</x>
+      <y>590</y>
+      <w>230</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+MotionCals  
+
++ MotionCals = 5</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>2220</x>
+      <y>590</y>
+      <w>230</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+MotionCals  
+
++ MotionCals = 5</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>2200</x>
+      <y>560</y>
+      <w>270</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>RightHeart-Work
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>2540</x>
+      <y>590</y>
+      <w>230</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+MotionCals  
+
++ MotionCals = 24</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>2530</x>
+      <y>560</y>
+      <w>270</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>LeftHeart-Work
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1570</x>
+      <y>620</y>
+      <w>340</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;220.0;270.0;220.0;270.0;10.0;320.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1570</x>
+      <y>620</y>
+      <w>670</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;240.0;600.0;240.0;600.0;10.0;650.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1570</x>
+      <y>620</y>
+      <w>980</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;260.0;930.0;260.0;930.0;10.0;960.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>1840</x>
+      <y>910</y>
+      <w>270</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>SkeletalMuscle-Work 
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1860</x>
+      <y>940</y>
+      <w>230</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+MotionCals
+
++ Exercise-Metabolism.MotionCals </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>2140</x>
+      <y>910</y>
+      <w>550</w>
+      <h>370</h>
+    </coordinates>
+    <panel_attributes>Exercise-Metabolism
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>2160</x>
+      <y>940</y>
+      <w>230</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+MotionCals
+
++ WattsToCals 
+* MotionWatts </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2080</x>
+      <y>960</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1570</x>
+      <y>960</y>
+      <w>310</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;290.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>2440</x>
+      <y>940</y>
+      <w>230</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+fg=red
+bg=gray
+MotionWatts 
+
+input = TargetMotionWatts 
+initValue = 0.0
+step = 1/0.2 
+dervertive = MotionWattsDerv
+output = MotionWatts</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2430</x>
+      <y>960</y>
+      <w>30</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2380</x>
+      <y>960</y>
+      <w>80</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2540</x>
+      <y>1070</y>
+      <w>30</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2180</x>
+      <y>1110</y>
+      <w>440</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>style=wordwrap
+fg=red
+bg=gray
+This function is meant to calculate the amount of watts depending on the activity level. Resting = 0 and other exercise above 0.
+This can be reduced to a simple linary cuve in coorlation with heartrate accoring to Giovanni Grazzi et al. (File name = GrazziGetal_MSSE1999)
+Where the curve is roughly defined by the three points
+x1 = 90  (heartrate) and y1 = 100 (power in watts)
+x2 = 170   y2 = 400
+x3 = 180   y3 = 500 </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>0</x>
+      <y>90</y>
+      <w>770</w>
+      <h>680</h>
+    </coordinates>
+    <panel_attributes>BodyH2O
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>500</x>
+      <y>350</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>540</x>
+      <y>810</y>
+      <w>230</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>TissueH2O
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>560</x>
+      <y>840</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+Vol
+
++ ICFV.Vol 
+- RBCH2O.Vol</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>460</x>
+      <y>440</y>
+      <w>170</w>
+      <h>420</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;350.0;150.0;350.0;150.0;400.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>560</x>
+      <y>1010</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+Vol
+
++ OsmBody.ICFV</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>540</x>
+      <y>980</y>
+      <w>230</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>ICFV
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>600</x>
+      <y>910</y>
+      <w>30</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>560</x>
+      <y>1180</y>
+      <w>190</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+ICFV
+
+(+ ICFVActiveOsmoles 
+/ ActiveOsmoles) 
+* BodyH2O.Vol </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>540</x>
+      <y>1150</y>
+      <w>230</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>OsmBody
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>600</x>
+      <y>1080</y>
+      <w>30</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>270</x>
+      <y>810</y>
+      <w>230</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>RBCH2O
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>290</x>
+      <y>840</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+Vol
+
++ FractH2O 
+* RBCVol.Vol</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>470</x>
+      <y>860</y>
+      <w>110</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>290</x>
+      <y>940</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+FractH2O
+
++ 1.0 
+- RBCSolids.FractSolids </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>340</x>
+      <y>910</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>290</x>
+      <y>1110</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+FractSolids
+
++ 0.34</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>270</x>
+      <y>1080</y>
+      <w>230</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>RBCSolids
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>340</x>
+      <y>1010</y>
+      <w>30</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>270</x>
+      <y>1250</y>
+      <w>230</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>RBCVol
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>290</x>
+      <y>1280</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+Vol
+
++ InitialVol</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>290</x>
+      <y>1380</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+InitialVol
+
++ BloodVol.InitialHct 
+* BloodVol.InitialVol</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>240</x>
+      <y>860</y>
+      <w>70</w>
+      <h>470</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;10.0;10.0;450.0;50.0;450.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>330</x>
+      <y>1350</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>540</x>
+      <y>1330</y>
+      <w>230</w>
+      <h>380</h>
+    </coordinates>
+    <panel_attributes>BloodVol
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>560</x>
+      <y>1360</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+InitialVol
+
++ Start-General.X-Textbook 
+* TextbookVolume</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>560</x>
+      <y>1560</y>
+      <w>190</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+InitialHct
+
+If male
+ + 0.44
+
+If femal
+ + 0.40</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>470</x>
+      <y>1390</y>
+      <w>110</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>470</x>
+      <y>1420</y>
+      <w>110</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0;50.0;170.0;90.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>810</x>
+      <y>1290</y>
+      <w>600</w>
+      <h>580</h>
+    </coordinates>
+    <panel_attributes>Start-General
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>830</x>
+      <y>1320</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+X-Textbook
+
++ LeanPart 
++ FatPart </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>830</x>
+      <y>1420</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+LeanPart
+
++ LeanFraction 
+* InitialLeanMass </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>830</x>
+      <y>1520</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+LeanFraction
+
++ 0.0000182</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>830</x>
+      <y>1620</y>
+      <w>250</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+InitialLeanMass
+
++ Bone-Size.InitialMass
++ Brain-Size.InitialMass
++ GITract-Size.InitialMass
++ Kidney-Size.InitialMass
++ LeftHeart-Size.InitialMass
++ Liver-Size.InitialMass
++ OtherTissue-Size.InitialMass
++ RespiratoryMuscle-Size.InitialMass
++ RightHeart-Size.InitialMass
++ SkeletalMuscle-Size.InitialMass
++ Skin-Size.InitialMass</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>1100</x>
+      <y>2560</y>
+      <w>230</w>
+      <h>480</h>
+    </coordinates>
+    <panel_attributes>Values-OtherMass
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1120</x>
+      <y>2600</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+Mass
++ 1000.0 * Mass(kG)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1120</x>
+      <y>2700</y>
+      <w>190</w>
+      <h>330</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+Mass(kG)
+If male
+  If small
+   + 19.0
+  If normal
+   + 22.0
+  If large
+   + 30.0
+  If very large
+   + 44.0
+If female
+  If small
+   + 15.0
+  If normal
+   + 20.0
+  If large
+   + 28.0
+  If very large
+   + 36</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>740</x>
+      <y>1360</y>
+      <w>110</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;30.0;50.0;30.0;50.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>560</x>
+      <y>1460</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+TextbookVolume
+
++ 5400.0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>590</x>
+      <y>1430</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>850</x>
+      <y>1390</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>850</x>
+      <y>1490</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1010</x>
+      <y>1460</y>
+      <w>50</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;30.0;10.0;30.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>900</x>
+      <y>1840</y>
+      <w>270</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;150.0;250.0;150.0;250.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>1100</x>
+      <y>2010</y>
+      <w>230</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>Bone-Size
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1120</x>
+      <y>2040</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+InitialMass
++ MassFractBase 
+* Weight.InitialOtherMass</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1120</x>
+      <y>2140</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+MassFractBase
+
++ 0.389</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1120</x>
+      <y>2330</y>
+      <w>190</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+InitialOtherMass
+
++ Values-OtherMass.Mass</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>1100</x>
+      <y>2300</y>
+      <w>230</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>Weight
+valign=top
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1140</x>
+      <y>2110</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1070</x>
+      <y>2080</y>
+      <w>300</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;10.0;10.0;190.0;280.0;190.0;280.0;280.0;240.0;280.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1140</x>
+      <y>2490</y>
+      <w>30</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1140</x>
+      <y>2670</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>1390</x>
+      <y>2010</y>
+      <w>230</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>Brain-Size
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1410</x>
+      <y>2040</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+InitialMass
++ MassFractBase 
+* Weight.InitialOtherMass</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1410</x>
+      <y>2140</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+MassFractBase
+
++ 0.0526</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1430</x>
+      <y>2110</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1300</x>
+      <y>2080</y>
+      <w>130</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>110.0;10.0;60.0;10.0;60.0;290.0;10.0;290.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>1680</x>
+      <y>2010</y>
+      <w>230</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>GITract-Size
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1700</x>
+      <y>2040</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+InitialMass
++ MassFractBase 
+* Weight.InitialOtherMass</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1700</x>
+      <y>2140</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+MassFractBase
+
++ 0.0578</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1720</x>
+      <y>2110</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>1970</x>
+      <y>2010</y>
+      <w>230</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>Kidney-Size
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1990</x>
+      <y>2040</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+InitialMass
++ MassFractBase 
+* Weight.InitialOtherMass</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1990</x>
+      <y>2140</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+MassFractBase
+
++ 0.0116</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2010</x>
+      <y>2110</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>2260</x>
+      <y>2010</y>
+      <w>230</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>LeftHeart-Size
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>2280</x>
+      <y>2040</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+InitialMass
++ MassFractBase 
+* Weight.InitialOtherMass</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>2280</x>
+      <y>2140</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+MassFractBase
+
++ 0.0105</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2300</x>
+      <y>2110</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>2550</x>
+      <y>2010</y>
+      <w>230</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>Liver-Size
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>2570</x>
+      <y>2040</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+InitialMass
++ MassFractBase 
+* Weight.InitialOtherMass</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>2570</x>
+      <y>2140</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+MassFractBase
+
++ 0.0701</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2590</x>
+      <y>2110</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>2860</x>
+      <y>2010</y>
+      <w>230</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>OtherTissue-Size
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>2880</x>
+      <y>2040</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+InitialMass
++ MassFractBase 
+* Weight.InitialOtherMass</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>2880</x>
+      <y>2140</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+MassFractBase
+
++ 0.165</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>2900</x>
+      <y>2110</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>3150</x>
+      <y>2010</y>
+      <w>230</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>RespiratoryMuscle-Size
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>3170</x>
+      <y>2040</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+InitialMass
++ MassFractBase 
+* Weight.InitialOtherMass</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>3170</x>
+      <y>2140</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+MassFractBase
+
++ 0.140</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3190</x>
+      <y>2110</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>3440</x>
+      <y>2010</y>
+      <w>230</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>RightHeart-Size
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>3460</x>
+      <y>2040</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+InitialMass
++ MassFractBase 
+* Weight.InitialOtherMass</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>3460</x>
+      <y>2140</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+MassFractBase
+
++ 0.00175</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3480</x>
+      <y>2110</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>810</x>
+      <y>2010</y>
+      <w>230</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>SkeletalMuscle-Size
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>830</x>
+      <y>2040</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+InitialMass
++ 1000.0 
+* InitialMass(kG) </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>830</x>
+      <y>2140</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+InitialMass(kG)
+
++ Values-Muscularity.Mass(kG)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>850</x>
+      <y>2110</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>3730</x>
+      <y>2010</y>
+      <w>230</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>Skin-Size
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>3750</x>
+      <y>2040</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+InitialMass
++ MassFractBase 
+* Weight.InitialOtherMass</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>3750</x>
+      <y>2140</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+MassFractBase
+
++ 0.102</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>3770</x>
+      <y>2110</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1300</x>
+      <y>2080</y>
+      <w>420</w>
+      <h>320</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>400.0;10.0;350.0;10.0;350.0;190.0;70.0;190.0;70.0;300.0;10.0;300.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1300</x>
+      <y>2080</y>
+      <w>710</w>
+      <h>330</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>690.0;10.0;640.0;10.0;640.0;200.0;80.0;200.0;80.0;310.0;10.0;310.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1300</x>
+      <y>2080</y>
+      <w>1000</w>
+      <h>340</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>980.0;10.0;930.0;10.0;930.0;210.0;90.0;210.0;90.0;320.0;10.0;320.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1300</x>
+      <y>2080</y>
+      <w>1290</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>1270.0;10.0;1220.0;10.0;1220.0;220.0;100.0;220.0;100.0;330.0;10.0;330.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1300</x>
+      <y>2080</y>
+      <w>1600</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>1580.0;10.0;1520.0;10.0;1520.0;230.0;110.0;230.0;110.0;340.0;10.0;340.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1300</x>
+      <y>2080</y>
+      <w>1880</w>
+      <h>370</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>1860.0;10.0;1820.0;10.0;1820.0;240.0;120.0;240.0;120.0;350.0;10.0;350.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1300</x>
+      <y>2080</y>
+      <w>2180</w>
+      <h>380</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>2160.0;10.0;2110.0;10.0;2110.0;250.0;130.0;250.0;130.0;360.0;10.0;360.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>810</x>
+      <y>2300</y>
+      <w>230</w>
+      <h>380</h>
+    </coordinates>
+    <panel_attributes>Values-Muscularity
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>830</x>
+      <y>2330</y>
+      <w>190</w>
+      <h>330</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+Mass(kG)
+If male
+  If small
+   + 18.0
+  If normal
+   + 27.4
+  If large
+   + 40.0
+  If very large
+   + 58.0
+If female
+  If small
+   + 12.0
+  If normal
+   + 17.9
+  If large
+   + 23.0
+  If very large
+   + 34.0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>850</x>
+      <y>2210</y>
+      <w>30</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1300</x>
+      <y>2080</y>
+      <w>2470</w>
+      <h>390</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>2450.0;10.0;2400.0;10.0;2400.0;260.0;140.0;260.0;140.0;370.0;10.0;370.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>910</x>
+      <y>1840</y>
+      <w>550</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0;530.0;140.0;530.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>920</x>
+      <y>1840</y>
+      <w>830</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0;810.0;130.0;810.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>930</x>
+      <y>1840</y>
+      <w>1110</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0;1090.0;120.0;1090.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>960</x>
+      <y>1840</y>
+      <w>1970</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0;1950.0;90.0;1950.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>940</x>
+      <y>1840</y>
+      <w>1390</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0;1370.0;110.0;1370.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>950</x>
+      <y>1840</y>
+      <w>1670</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0;1650.0;100.0;1650.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>970</x>
+      <y>1840</y>
+      <w>2250</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0;2230.0;80.0;2230.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>980</x>
+      <y>1840</y>
+      <w>2530</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0;2510.0;70.0;2510.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>990</x>
+      <y>1840</y>
+      <w>2810</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0;2790.0;60.0;2790.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1100</x>
+      <y>1520</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+FatFraction
+
++ 0.0000060</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1100</x>
+      <y>1420</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+FatPart
+
++ FatFraction 
+* InitialFatMass </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1120</x>
+      <y>1490</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1010</x>
+      <y>1360</y>
+      <w>140</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0;120.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1100</x>
+      <y>1620</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+InitialFatMass
+
++ Fat-Size.InitialMass</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1280</x>
+      <y>1460</y>
+      <w>50</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;30.0;10.0;30.0;190.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>1460</x>
+      <y>1290</y>
+      <w>230</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>Fat-Size
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1480</x>
+      <y>1320</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+InitialMass
++ 1000.0 
+* InitialMass(kG)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1480</x>
+      <y>1420</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+InitialMass(kG)
++ Values-Adiposity.Mass(kG)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>1740</x>
+      <y>1290</y>
+      <w>230</w>
+      <h>430</h>
+    </coordinates>
+    <panel_attributes>Values-Adiposity
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1760</x>
+      <y>1310</y>
+      <w>190</w>
+      <h>390</h>
+    </coordinates>
+    <panel_attributes>halign=left
+valign=center
+Mass(kG)
+If male
+  If underweight
+   + 10.0
+  If normalweight
+   + 16.6
+  If overweight
+   + 26.0
+  If obese
+   + 44.0
+  If morbidlyobese
+   + 110.0
+If female
+  If underweight
+   + 14.0
+  If normalweight
+   + 20.2
+  If overweight
+   + 32.0
+  If obese
+   + 46.0
+  If morbidlyobese
+   + 110.0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1660</x>
+      <y>1450</y>
+      <w>120</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1510</x>
+      <y>1390</y>
+      <w>30</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1280</x>
+      <y>1350</y>
+      <w>220</w>
+      <h>340</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;320.0;160.0;320.0;160.0;10.0;200.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>850</x>
+      <y>1840</y>
+      <w>70</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>50.0;10.0;50.0;150.0;10.0;150.0;10.0;200.0</additional_attributes>
+  </element>
+</diagram>
