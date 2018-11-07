@@ -1,7 +1,7 @@
  clear all
  close all
  clc
- %% Load data
+ %% Load heart data
 imported_dataset = importfile('female_data_heart.csv',2,500000);%Importerer datasættet der bruges
 imported_dataset.Properties.VariableNames{1} = 'Date';%Sørger for at kolonnerne har variabelnavne til scriptet
 imported_dataset.Properties.VariableNames{2} = 'heart';
@@ -37,7 +37,7 @@ for i = 2:height(imported_dataset)%Hele datasættet uden NaN på række 1
         lasttime = i;%Nulstiller nævneren
     end
 end
-
+%% load step data
 Step_Data = importfile('female_data_steps.csv',2,70561);
 Step_Data.Properties.VariableNames{1} = 'Date';%Sørger for at kolonnerne har variabelnavne til scriptet
 Step_Data.Properties.VariableNames{2} = 'steps';
@@ -139,26 +139,33 @@ table_heart_step.Properties.VariableNames{4} = 'headache';
 %%
 %Slope_change = diff(sign(diff(diffHeart)))~=0;
 %% features for heart
+window_size = 60;
 heart = data.heart;
 heart_diff = diff(heart);
-heart_diff_movmax = movmax(heart_diff,60);
-heart_diff_movmean = movmean(heart_diff,60);
-heart_diff_movmin = movmin(heart_diff,60);
-heart_median = movmedian(heart,60);
-heart_movmean = movmean(heart,60);
-heart_movmin = movmin(heart,60);
-heart_movmax = movmax(heart,60);
-heart_movstd = movstd(heart,60);
+heart_diff_movmax = movmax(heart_diff,window_size);
+heart_diff_movmean = movmean(heart_diff,window_size);
+heart_diff_movmin = movmin(heart_diff,window_size);
+heart_median = movmedian(heart,window_size);
+heart_movmean = movmean(heart,window_size);
+heart_movmin = movmin(heart,window_size);
+heart_movmax = movmax(heart,window_size);
+heart_movstd = movstd(heart,window_size);
 Date_time = hms(data.Date);
+% delay heart features
+delay_heart_data = delayseq(heart,15); % delay heart 15 min 
 
 %% features for steps
 steps = Step_Data.steps(1:end);
-steps_movmean = movmean(steps,60);
-steps_movmin = movmin(steps,60);
-steps_movmax = movmax(steps,60);
-steps_movstd = movstd(steps,60);
+steps_diff = diff(steps); %Tilføjet
+steps_movmean = movmean(steps,window_size);
+steps_movmedian = movmedian(steps,window_size); %Tilføjet
+steps_movmin = movmin(steps,window_size);
+steps_movmax = movmax(steps,window_size);
+steps_movstd = movstd(steps,window_size);
+% delay step feature
+delay_steps_data = delayseq(steps,15); % delay step 15 min
 %% Make a table
-Data_table = table(Date_time(1:end-1),heart(1:end-1),heart_diff, heart_diff_movmax,heart_diff_movmean,heart_diff_movmin,heart_median(1:end-1),heart_movmean(1:end-1),heart_movmin(1:end-1),heart_movmax(1:end-1),heart_movstd(1:end-1),steps(1:end-1),steps_movmean(1:end-1),steps_movmin(1:end-1),steps_movmax(1:end-1),steps_movstd(1:end-1),data.headache(1:end-1));
+Data_table = table(Date_time(1:end-1),heart(1:end-1),heart_diff, heart_diff_movmax,heart_diff_movmean,heart_diff_movmin,heart_median(1:end-1),heart_movmean(1:end-1),heart_movmin(1:end-1),heart_movmax(1:end-1),heart_movstd(1:end-1),steps(1:end-1),steps_diff,steps_movmean(1:end-1),steps_movmedian(1:end-1),steps_movmin(1:end-1),steps_movmax(1:end-1),steps_movstd(1:end-1),data.headache(1:end-1));
 Data_table.Properties.VariableNames{1} = 'hour';
 Data_table.Properties.VariableNames{2} = 'heart';
 Data_table.Properties.VariableNames{7} = 'heart_median';
@@ -167,11 +174,12 @@ Data_table.Properties.VariableNames{9} = 'heart_movmin';
 Data_table.Properties.VariableNames{10} = 'heart_movmax';
 Data_table.Properties.VariableNames{11} = 'heart_movstd';
 Data_table.Properties.VariableNames{12} = 'steps';
-Data_table.Properties.VariableNames{13} = 'steps_movmean';
-Data_table.Properties.VariableNames{14} = 'steps_movmin';
-Data_table.Properties.VariableNames{15} = 'steps_movmax';
-Data_table.Properties.VariableNames{16} = 'steps_movstd';
-Data_table.Properties.VariableNames{17} = 'headache';
+Data_table.Properties.VariableNames{14} = 'steps_movmean';
+Data_table.Properties.VariableNames{15} = 'steps_movmedian'; %Tilføjet
+Data_table.Properties.VariableNames{16} = 'steps_movmin';
+Data_table.Properties.VariableNames{17} = 'steps_movmax';
+Data_table.Properties.VariableNames{18} = 'steps_movstd';
+Data_table.Properties.VariableNames{19} = 'headache';
 %% splitting the data into train and test dataset
 trainLabelVec = (Data_table.headache(1:35000));
 trainSamples = table2array(Data_table(1:35000,1:16));
