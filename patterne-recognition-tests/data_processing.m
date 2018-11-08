@@ -8,7 +8,7 @@ imported_dataset.Properties.VariableNames{2} = 'heart';
 [minute_number1,minutes_time1] = discretize(imported_dataset.Date(1:400000),'minute');%Inddeler data i minut intervaller
 [minute_number2,minutes_time2] = discretize(imported_dataset.Date(400001:end),'minute');%Inddeler data i minut intervaller
 minutes_time1 = minutes_time1';%Vender matricen fra 1 række til 1 kolonne
-minutes_time2 = minutes_time2';%Vender matricen fra 1 række til 1 kolonne
+minutes_time2 = minutes_tisme2';%Vender matricen fra 1 række til 1 kolonne
 minute_number = [minute_number1;minute_number2];
 minutes_time = [minutes_time1;minutes_time2];
 %imported_dataset.minute = minute_number; Ved ikke lige hvorfor den her er der
@@ -135,14 +135,16 @@ for i= 1:height(sleepData)
     s_e = find(data.Date==(sleepData{i,2}));
     data.sleep(s_s:s_e)=ones;
 end
-%Moving sleep average over the last week
+%Total sleep in minutes per day
 for i= 1:height(sleepData)
     day = find(data.Date==(sleepData{i,2}));
     %etime giver resultat i sekunder, omregnes derfor til minutter
     data.SleepAmount(day)=(etime(datevec(datenum(sleepData{i,2})),datevec(datenum(sleepData{i,1}))))/60; 
 end
-sleep = data.SleepAmount;
-sleep_movmean = movmean(sleep,'de sidste syv dage');
+% Movingsum, last seven days
+sleeptime = data.sleep;
+data.SleepAverage = movsum(sleeptime,10080)/7/60; %In hours
+
 %% FFT
 % Fs = 100;   
 % L = length(Dataset.heart(2:end));
@@ -185,7 +187,7 @@ delay_heart_300 = delayseq(heart(2:end),300); % delay heart 5 hours
 steps = Step_Data.steps(1:end);
 steps_diff = diff(steps); %Tilføjet
 steps_movmean = movmean(steps,window_size);
-steps_movmedian = movmedian(steps,window_size); %Tilføjet
+steps_movmedian = movmedian(steps,window_size);
 steps_movmin = movmin(steps,window_size);
 steps_movmax = movmax(steps,window_size);
 steps_movstd = movstd(steps,window_size);
@@ -205,7 +207,7 @@ Data_table.Properties.VariableNames{10} = 'heart_movmax';
 Data_table.Properties.VariableNames{11} = 'heart_movstd';
 Data_table.Properties.VariableNames{12} = 'steps';
 Data_table.Properties.VariableNames{14} = 'steps_movmean';
-Data_table.Properties.VariableNames{15} = 'steps_movmedian'; %Tilføjet
+Data_table.Properties.VariableNames{15} = 'steps_movmedian';
 Data_table.Properties.VariableNames{16} = 'steps_movmin';
 Data_table.Properties.VariableNames{17} = 'steps_movmax';
 Data_table.Properties.VariableNames{18} = 'steps_movstd';

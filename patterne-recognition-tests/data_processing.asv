@@ -8,7 +8,7 @@ imported_dataset.Properties.VariableNames{2} = 'heart';
 [minute_number1,minutes_time1] = discretize(imported_dataset.Date(1:400000),'minute');%Inddeler data i minut intervaller
 [minute_number2,minutes_time2] = discretize(imported_dataset.Date(400001:end),'minute');%Inddeler data i minut intervaller
 minutes_time1 = minutes_time1';%Vender matricen fra 1 række til 1 kolonne
-minutes_time2 = minutes_time2';%Vender matricen fra 1 række til 1 kolonne
+minutes_time2 = minutes_tisme2';%Vender matricen fra 1 række til 1 kolonne
 minute_number = [minute_number1;minute_number2];
 minutes_time = [minutes_time1;minutes_time2];
 %imported_dataset.minute = minute_number; Ved ikke lige hvorfor den her er der
@@ -120,23 +120,31 @@ table_heart_step.Properties.VariableNames{2} = 'heart';
 table_heart_step.Properties.VariableNames{3} = 'steps';
 table_heart_step.Properties.VariableNames{4} = 'headache';
 %% Load Sleep data
-femalesleep20181102(1,:) = [];
-
-sleep = importfile('female_sleep_20181102.csv',1,24);
-
-sleepData = table('Size',[height(femalesleep20181102) 2],'VariableTypes',["datetime","datetime"],'VariableNames',["BedTime","WakeTime"]);
-for i = 1:height(femalesleep20181102) %The for-loop converts time from type String to DateTime, and from AM/PM to 24h.
-    sleepData{i,1} = datetime(datestr(datenum(femalesleep20181102{i,1}, 'dd-mm-yyyy HH:MM AM'), 'yyyy-mm-dd-HH-MM-SS'),'InputFormat','yyyy-MM-dd-HH-mm-ss');
-    sleepData{i,2} = datetime(datestr(datenum(femalesleep20181102{i,2}, 'dd-mm-yyyy HH:MM AM'), 'yyyy-mm-dd-HH-MM-SS'),'InputFormat','yyyy-MM-dd HH:mm');
+sleep_file = importfile_sleep('female_sleep_20181010.csv',3,29);
+sleepData = table('Size',[height(sleep_file) 2],'VariableTypes',["datetime","datetime"],'VariableNames',["BedTime","WakeTime"]);
+for i = 1:height(sleep_file) %The for-loop converts time from type String to DateTime, and from AM/PM to 24h.
+    sleepData{i,1} = datetime(datestr(datenum(sleep_file{i,1}, 'dd-mm-yyyy HH:MM AM'), 'yyyy-mm-dd-HH-MM-SS'),'InputFormat','yyyy-MM-dd-HH-mm-ss');
+    sleepData{i,2} = datetime(datestr(datenum(sleep_file{i,2}, 'dd-mm-yyyy HH:MM AM'), 'yyyy-mm-dd-HH-MM-SS'),'InputFormat','yyyy-MM-dd-HH-mm-ss');
 end
-clear i femalesleep20181102
+clear i sleep_file
 sleepData = sortrows(sleepData); %Sort the columns "Ascend"
 %% Features of sleeptime
+%1 when sleeping, 0 when awake
 for i= 1:height(sleepData)
     s_s = find(data.Date==(sleepData{i,1}));
     s_e = find(data.Date==(sleepData{i,2}));
     data.sleep(s_s:s_e)=ones;
 end
+%Moving sleep  over the last week
+for i= 1:height(sleepData)
+    day = find(data.Date==(sleepData{i,2}));
+    %etime giver resultat i sekunder, omregnes derfor til minutter
+    data.SleepAmount(day)=(etime(datevec(datenum(sleepData{i,2})),datevec(datenum(sleepData{i,1}))))/60; 
+end
+% Movingsum, last seven days
+sleeptime = data.sleep;
+data.SleepAverage = movsum(sleeptime,10080)/7/60; %In hours
+
 %% FFT
 % Fs = 100;   
 % L = length(Dataset.heart(2:end));
@@ -205,10 +213,10 @@ Data_table.Properties.VariableNames{17} = 'steps_movmax';
 Data_table.Properties.VariableNames{18} = 'steps_movstd';
 Data_table.Properties.VariableNames{20} = 'delay_steps_15';
 Data_table.Properties.VariableNames{21} = 'headache';
-% Data_table(1:5,1) =[]; % Delete the first 5 miniuts of data 
-Data_table(1:15,1) =[]; % Delete the first 15 miniuts of data 
-% Data_table(1:60,1) =[]; % Delete the first 60 miniuts of data 
-% Data_table(1:300,1) =[]; % Delete the first 5 hours of data 
+% Data_table(1:5,:) =[]; % Delete the first 5 miniuts of data 
+Data_table(1:15,:) =[]; % Delete the first 15 miniuts of data 
+% Data_table(1:60,:) =[]; % Delete the first 60 miniuts of data 
+% Data_table(1:300,:) =[]; % Delete the first 5 hours of data 
 %% splitting the data into train and test dataset
 trainLabelVec = (Data_table.headache(1:35000));
 trainSamples = table2array(Data_table(1:35000,1:20));
