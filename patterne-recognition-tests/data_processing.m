@@ -135,14 +135,16 @@ for i= 1:height(sleepData)
     s_e = find(data.Date==(sleepData{i,2}));
     data.sleep(s_s:s_e)=ones;
 end
-%Moving sleep average over the last week
-for i= 1:height(sleepData)
-    day = find(data.Date==(sleepData{i,2}));
-    %etime giver resultat i sekunder, omregnes derfor til minutter
-    data.SleepAmount(day)=(etime(datevec(datenum(sleepData{i,2})),datevec(datenum(sleepData{i,1}))))/60; 
-end
-sleep = data.SleepAmount;
-sleep_movmean = movmean(sleep,'de sidste syv dage');
+% %Total sleep in minutes per day
+% for i= 1:height(sleepData)
+%     day = find(data.Date==(sleepData{i,2}));
+%     %etime giver resultat i sekunder, omregnes derfor til minutter
+%     data.SleepAmount(day)=(etime(datevec(datenum(sleepData{i,2})),datevec(datenum(sleepData{i,1}))))/60; 
+% end
+% Movingsum, last seven days
+sleeptime = data.sleep;
+data.SleepAverage = movsum(sleeptime,10080)/7/60; %In hours
+
 %% FFT
 % Fs = 100;   
 % L = length(Dataset.heart(2:end));
@@ -185,7 +187,7 @@ delay_heart_300 = delayseq(heart(2:end),300); % delay heart 5 hours
 steps = Step_Data.steps(1:end);
 steps_diff = diff(steps); %Tilføjet
 steps_movmean = movmean(steps,window_size);
-steps_movmedian = movmedian(steps,window_size); %Tilføjet
+steps_movmedian = movmedian(steps,window_size);
 steps_movmin = movmin(steps,window_size);
 steps_movmax = movmax(steps,window_size);
 steps_movstd = movstd(steps,window_size);
@@ -195,7 +197,7 @@ delay_steps_15 = delayseq(steps,15); % delay step 15 min
 delay_steps_60 = delayseq(steps,60); % delay step 60 min
 delay_steps_300 = delayseq(steps,300); % delay step 5 hours
 %% Make a table
-Data_table = table(Date_time(1:end-1),heart(1:end-1),heart_diff, heart_diff_movmax,heart_diff_movmean,heart_diff_movmin,heart_median(1:end-1),heart_movmean(1:end-1),heart_movmin(1:end-1),heart_movmax(1:end-1),heart_movstd(1:end-1),steps(1:end-1),steps_diff,steps_movmean(1:end-1),steps_movmedian(1:end-1),steps_movmin(1:end-1),steps_movmax(1:end-1),steps_movstd(1:end-1),delay_heart_15,delay_steps_15(1:end-1),data.headache(1:end-1));
+Data_table = table(Date_time(1:end-1),heart(1:end-1),heart_diff, heart_diff_movmax,heart_diff_movmean,heart_diff_movmin,heart_median(1:end-1),heart_movmean(1:end-1),heart_movmin(1:end-1),heart_movmax(1:end-1),heart_movstd(1:end-1),steps(1:end-1),steps_diff,steps_movmean(1:end-1),steps_movmedian(1:end-1),steps_movmin(1:end-1),steps_movmax(1:end-1),steps_movstd(1:end-1),delay_heart_15,delay_steps_15(1:end-1),sleeptime(1:end-1),data.SleepAverage(1:end-1),data.headache(1:end-1));
 Data_table.Properties.VariableNames{1} = 'hour';
 Data_table.Properties.VariableNames{2} = 'heart';
 Data_table.Properties.VariableNames{7} = 'heart_median';
@@ -205,12 +207,14 @@ Data_table.Properties.VariableNames{10} = 'heart_movmax';
 Data_table.Properties.VariableNames{11} = 'heart_movstd';
 Data_table.Properties.VariableNames{12} = 'steps';
 Data_table.Properties.VariableNames{14} = 'steps_movmean';
-Data_table.Properties.VariableNames{15} = 'steps_movmedian'; %Tilføjet
+Data_table.Properties.VariableNames{15} = 'steps_movmedian';
 Data_table.Properties.VariableNames{16} = 'steps_movmin';
 Data_table.Properties.VariableNames{17} = 'steps_movmax';
 Data_table.Properties.VariableNames{18} = 'steps_movstd';
 Data_table.Properties.VariableNames{20} = 'delay_steps_15';
-Data_table.Properties.VariableNames{21} = 'headache';
+Data_table.Properties.VariableNames{21} = 'sleeptime';
+Data_table.Properties.VariableNames{22} = 'sleepaverage';
+Data_table.Properties.VariableNames{23} = 'headache';
 % Data_table(1:5,:) =[]; % Delete the first 5 miniuts of data 
 Data_table(1:15,:) =[]; % Delete the first 15 miniuts of data 
 % Data_table(1:60,:) =[]; % Delete the first 60 miniuts of data 
