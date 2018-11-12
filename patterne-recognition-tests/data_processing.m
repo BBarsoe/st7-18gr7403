@@ -120,7 +120,7 @@ table_heart_step.Properties.VariableNames{2} = 'heart';
 table_heart_step.Properties.VariableNames{3} = 'steps';
 table_heart_step.Properties.VariableNames{4} = 'headache';
 %% Load Sleep data
-sleep_file = importfile_sleep('female_sleep_20181010.csv',3,29);
+sleep_file = importfile_sleep('female_sleep.csv',3,53);
 sleepData = table('Size',[height(sleep_file) 2],'VariableTypes',["datetime","datetime"],'VariableNames',["BedTime","WakeTime"]);
 for i = 1:height(sleep_file) %The for-loop converts time from type String to DateTime, and from AM/PM to 24h.
     sleepData{i,1} = datetime(datestr(datenum(sleep_file{i,1}, 'dd-mm-yyyy HH:MM AM'), 'yyyy-mm-dd-HH-MM-SS'),'InputFormat','yyyy-MM-dd-HH-mm-ss');
@@ -135,12 +135,6 @@ for i= 1:height(sleepData)
     s_e = find(data.Date==(sleepData{i,2}));
     data.sleep(s_s:s_e)=ones;
 end
-% %Total sleep in minutes per day
-% for i= 1:height(sleepData)
-%     day = find(data.Date==(sleepData{i,2}));
-%     %etime giver resultat i sekunder, omregnes derfor til minutter
-%     data.SleepAmount(day)=(etime(datevec(datenum(sleepData{i,2})),datevec(datenum(sleepData{i,1}))))/60; 
-% end
 % Movingsum, last seven days
 sleeptime = data.sleep;
 data.SleepAverage = movsum(sleeptime,10080)/7/60; %In hours
@@ -238,7 +232,7 @@ step_movmean_2h_delay_5h = movmean(delay_steps_5h,120); %Tilføjet
 
 %% Make a table
 Data_table = table(Date_time(1:end-2),heart(1:end-2),heart_diff(1:end-1), heart_diff_movmax(1:end-1),heart_diff_movmean(1:end-1),heart_diff_movmin(1:end-1),...
-    heart_median_1h(1:end-2),heart_movmean_1h(1:end-2),heart_movmin_1h(1:end-2),heart_movmax_1h(1:end-2),heart_movstd_1h(1:end-2),...
+    heart_movmedian_1h(1:end-2),heart_movmean_1h(1:end-2),heart_movmin_1h(1:end-2),heart_movmax_1h(1:end-2),heart_movstd_1h(1:end-2),...
     delay_heart_5m(1:end-1),delay_heart_15m(1:end-1),delay_heart_1h(1:end-1),delay_heart_5h(1:end-1),...
     steps(1:end-2),steps_diff(1:end-1),...
     steps_movmean_1h(1:end-2),steps_movmedian_1h(1:end-2),steps_movmin_1h(1:end-2),steps_movmax_1h(1:end-2),steps_movstd_1h(1:end-2),...
@@ -246,7 +240,7 @@ Data_table = table(Date_time(1:end-2),heart(1:end-2),heart_diff(1:end-1), heart_
     sleeptime(1:end-2),data.SleepAverage(1:end-2),...
     delay_heart_diff_5m,delay_heart_diff_15m,delay_heart_diff_1h,delay_heart_diff_5h,...
     delay_steps_diff_5m(1:end-1),delay_steps_diff_15m(1:end-1),delay_steps_diff_1h(1:end-1),delay_steps_diff_5h(1:end-1),...
-    heart_median_15m(1:end-2),heart_movmean_15m(1:end-2),heart_movmin_15m(1:end-2),heart_movmax_15m(1:end-2),heart_movstd_15m(1:end-2),...
+    heart_movmedian_15m(1:end-2),heart_movmean_15m(1:end-2),heart_movmin_15m(1:end-2),heart_movmax_15m(1:end-2),heart_movstd_15m(1:end-2),...
     steps_movmean_15m(1:end-2),steps_movmedian_15m(1:end-2),steps_movmin_15m(1:end-2),steps_movmax_15m(1:end-2),steps_movstd_15m(1:end-2),...
     heart_movstd_1m_delay_5m(1:end-1),heart_movstd_5m_delay_15m(1:end-1),heart_movstd_15m_delay_1h(1:end-1),heart_movstd_2h_delay_5h(1:end-1),...
     heart_movmean_1m_delay_5m(1:end-1),heart_movmean_5m_delay_15m(1:end-1),heart_movmean_15m_delay_1h(1:end-1),heart_movmean_2h_delay_5h(1:end-1),...
@@ -333,6 +327,13 @@ Data_table.Properties.VariableNames{63} = 'headache';
 % Data_table(1:15,:) =[]; % Delete the first 15 miniuts of data 
 % Data_table(1:60,:) =[]; % Delete the first 60 miniuts of data 
 Data_table(1:300,:) =[]; % Delete the first 5 hours of data 
+%% Remove data where subject is sleeping
+Data_table(ismember(Data_table.sleeptime,1),:) = [];
+%% Train and test split, when sleep is removed - Create a copy of next Section
+trainSamples2 = table2array(Data_table(1:25000,1:63));
+testLabelVec2 = Data_table.headache(25001:end);
+testSamples2 = table2array(Data_table(25001:end,1:62));
+
 %% splitting the data into train and test dataset
 trainLabelVec = (Data_table.headache(1:35000));
 trainSamples = table2array(Data_table(1:35000,1:63));
