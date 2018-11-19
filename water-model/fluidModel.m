@@ -56,7 +56,7 @@ for i = 2:height(rawHeart)%Hele datasættet uden NaN på række 1
         lasttime = i;%Nulstiller nævneren
     end
 end
-heartRateData = data.heart;
+heartRateData = data.Var2;
 clear G heartsplit i k minute_number minute_number1 minute_number2 ...
     minutes_time minutes_time1 minutes_time2 rawHeart tmp 
 %% Create 'eating'- and 'sleeping'-tables
@@ -100,14 +100,9 @@ fluidBalance(:) = 0;
 %beginning.
 
 for i = 1:length(fluidBalance)
-    if(fluidBalance(i) > 0)
-       fluidOuttake = dayToMinute(2600); %2600ml is the average amount of fluid segregation per day for a person in rest. 1100ml from food, see line 28. Source:
-    else
-       fluidOuttake = dayToMinute((2/9)*fluidBalance(i)+2600);
-    end %The absorption in the body as a linear regression. Source:
-    
+    urineOuttake
     %Calculate the new fluidBalance
-    fluidBalance(i+1) = fluidBalance(i) + fluidIntake(i) - fluidOuttake;
+    fluidBalance(i+1) = fluidBalance(i) + fluidIntake(i);
     
     if(fluidBalance(i+1) > 2000) %2000ml is the amount of fluid a human body can store in the stomach/intensine. Source:
        fluidBalance(i+1) = 2000; %All fluid over 2000ml is removed, because there isn't space to absorb it in the body.
