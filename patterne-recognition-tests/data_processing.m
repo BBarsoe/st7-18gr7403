@@ -1,7 +1,7 @@
  clear all
  close all
  clc
- %% Load heart data
+%% Load heart data
 imported_dataset = importfile('female_data_heart.csv',2,500000);%Importerer datasættet der bruges
 imported_dataset.Properties.VariableNames{1} = 'Date';%Sørger for at kolonnerne har variabelnavne til scriptet
 imported_dataset.Properties.VariableNames{2} = 'heart';
