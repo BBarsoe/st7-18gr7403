@@ -24,8 +24,8 @@ fluidData{:,1} = rawFluid{:,1};
 fluidData{:,2} = rawFluid{:,2};
 startTime = fluidData{1,1};
 endTime = fluidData{end,1} + duration(12,0,0);
-
 clear rawFluid
+
 %Table with heartRateData
 rawHeartTimeTable = table2timetable(rawHeart);
 resizedHeartTimeTable = retime(rawHeartTimeTable,'minutely','mean');
