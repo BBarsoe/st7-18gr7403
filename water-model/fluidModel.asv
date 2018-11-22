@@ -40,7 +40,7 @@ eatingDailyAmount = 1100;
 eatingAmount = eatingDistribution * ((1/sum(eatingDistribution)) * eatingDailyAmount);
 eatingAmountMinutes = 1:1440;
 for  i = 1:1440
-    eatingAmountMinutes(i) = eatingDistribution(ceil(i/60))* ((1/60) * eatingAmount(ceil(i/60)));
+    eatingAmountMinutes(i) = eatingDistribution(ceil(i/60))*((1/sum(eatingDistribution)) * eatingDailyAmount);;
 end
 
 eatingAmountMinutes = 1:eatingDistribution * eatingAmount:60;
