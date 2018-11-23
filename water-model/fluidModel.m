@@ -14,11 +14,11 @@ end
 %Table with sleepdate, the type of fluid is removed. 
 rawSleep(1,:) = [];
 sleepData = table('Size',[height(rawSleep) 2],'VariableTypes',["datetime","datetime"],'VariableNames',["BedTime","WakeTime"]);
-sleepData{:,1} = datetime(datestr(datenum(rawSleep{:,1}, 'dd-mm-yyyy HH:MM AM'), 'yyyy-mm-dd HH:MM'),'InputFormat','yyyy-MM-dd HH:mm');
-sleepData{:,2} = datetime(datestr(datenum(rawSleep{:,2}, 'dd-mm-yyyy HH:MM AM'), 'yyyy-mm-dd HH:MM'),'InputFormat','yyyy-MM-dd HH:mm');
+sleepData{:,1} = datetime(datestr(datenum(rawSleep{:,1}, 'dd-mm-yyyy HH:MM AM'), 'yyyy-mm-dd HH:MM'),'Format', 'yyyy-MM-dd-HH-mm-ss','InputFormat','yyyy-MM-dd HH:mm');
+sleepData{:,2} = datetime(datestr(datenum(rawSleep{:,2}, 'dd-mm-yyyy HH:MM AM'), 'yyyy-mm-dd HH:MM'),'Format', 'yyyy-MM-dd-HH-mm-ss','InputFormat','yyyy-MM-dd HH:mm');
 clear rawSleep
 
-%Table with fluiddata, the type of fluid is removed. 
+%Table with fluiddata, the type of fluid is removed
 fluidData = table('Size',[height(rawFluid) 2],'VariableTypes',["datetime","double"],'VariableNames',["Time","Amount"]);
 fluidData{:,1} = rawFluid{:,1};
 fluidData{:,2} = rawFluid{:,2};
@@ -32,6 +32,23 @@ resizedHeartTimeTable = retime(rawHeartTimeTable,'minutely','mean');
 heartData = timetable2table(resizedHeartTimeTable);
 clear rawHeart rawHeartTimeTable resizedHeartTimeTable
 
+%% Syncing and cutting the data to match in time
+% Takes a dataset, convertes it into a number, and examines if the secound
+% number is contained in the dataset. If it is a member of, it returns the
+% index in the dataset. Otherwise it returns an empty vector. If the vector
+% is not empty the dataset is trimmed according to the found indexes.
+if ~(isempty(find(ismember(datenum(sleepData{:,1}),datenum(startTime)),1)))
+    sleepData(1:find(ismember(datenum(sleepData{:,1}),datenum(startTime)),1),:) = [];
+end
+if ~(isempty(find(ismember(datenum(sleepData{:,2}),datenum(endTime)),1)))
+    sleepData(find(ismember(datenum(sleepData{:,2}),datenum(endTime)),1):end,:) = [];
+end
+if ~(isempty(find(ismember(datenum(heartData{:,1}),datenum(startTime)),1)))
+    heartData(1:find(ismember(datenum(heartData{:,1}),datenum(startTime)),1),:) = [];
+end
+if ~(isempty(find(ismember(datenum(heartData{:,1}),datenum(endTime)),1)))
+    heartData(find(ismember(datenum(heartData{:,1}),datenum(endTime)),1):end,:) = [];
+end
 %% Create 'eating'- and 'sleeping'-tables
 %Eating table
 eatingTimes = 0:1:23;
@@ -42,9 +59,6 @@ eatingAmountMinutes = 1:1440;
 for  i = 1:1440
     eatingAmountMinutes(i) = eatingDistribution(ceil(i/60))* ((1/60) * eatingAmount(ceil(i/60)));
 end
-
-eatingAmountMinutes = 1:eatingDistribution * eatingAmount:60;
-eatingTable = table(eatingTimes',eatingDistribution',eatingAmount',eatingAmountMinutes','VariableNames',["Time","Distribution","Amount","AmountMinutes"]);
 clear eatingTimes eatingDistribution eatingDailyAmount eatingAmount
 
 %Sleeping table
@@ -85,10 +99,24 @@ fluidBalance = double(1:minutes(diff([fluidData{1,1} fluidData{height(fluidData)
 fluidBalance(:) = 0; 
 %Premise in the model: The person have a fluidBalance at zero in the
 %beginning.
+x = 480;
 
 for i = 1:length(fluidBalance)
+    if(fluidBalance(i) > 0)
+       fluidOuttake = dayToMinute(2600); %2600ml is the average amount of fluid segregation per day for a person in rest. 1100ml from food, see line 28. Source:
+    else
+       fluidOuttake = dayToMinute((2/9)*fluidBalance(i)+2600);
+    end %The absorption in the body as a linear regression. Source:
+    
+    %Adding eating to intake
+    if x == 1440
+       x = 1; 
+    end
+    fluidIntake(i) = fluidIntake(i) * eatingAmountMinutes(x);
+    x = x + 1;
+    
     %Calculate the new fluidBalance
-    fluidBalance(i+1) = fluidBalance(i) + fluidIntake(i);
+    fluidBalance(i+1) = fluidBalance(i) + fluidIntake(i) - fluidOuttake;
     
     if(fluidBalance(i+1) > 2000) %2000ml is the amount of fluid a human body can store in the stomach/intensine. Source:
        fluidBalance(i+1) = 2000; %All fluid over 2000ml is removed, because there isn't space to absorb it in the body.
@@ -97,6 +125,7 @@ for i = 1:length(fluidBalance)
        fluidBalance(i+1) = -3600;
     end
 end
+
 
 %% Plot
 S = fluidData{1,1}:minutes(1):fluidData{end,1};
