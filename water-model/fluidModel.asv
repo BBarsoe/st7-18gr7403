@@ -99,7 +99,6 @@ fluidBalance = double(1:minutes(diff([fluidData{1,1} fluidData{height(fluidData)
 fluidBalance(:) = 0; 
 %Premise in the model: The person have a fluidBalance at zero in the
 %beginning.
-x = 480;
 
 for i = 1:length(fluidBalance)
     if(fluidBalance(i) > 0)
@@ -109,11 +108,12 @@ for i = 1:length(fluidBalance)
     end %The absorption in the body as a linear regression. Source:
     
     %Adding eating to intake
-    if x == 1440
-       x = 1; 
+    for x = 1:length(eatingAmountMinutes)
+        if i == i
+           x = 480; 
+        end
+        fluidIntake
     end
-    fluidIntake(i) = fluidIntake(i) * eatingAmountMinutes(x);
-    x = x + 1;
     
     %Calculate the new fluidBalance
     fluidBalance(i+1) = fluidBalance(i) + fluidIntake(i) - fluidOuttake;
