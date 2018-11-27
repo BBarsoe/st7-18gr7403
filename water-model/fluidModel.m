@@ -1,15 +1,4 @@
-clear; close all; clc;
-%% Water Model based on fluid data and sleep time data
-%% Load data
-if isfile("rawData.mat")
-    load("rawData.mat");
-else 
-    rawSleep = importSleepData('fitbit_sleep_jacob.xls');
-    rawFluid = importFluidData('fluid_jacob.xlsx'); 
-    rawHeart = importHeartRate('female_data_heart.csv',2,444978);
-    save('rawData.mat','rawSleep','rawHeart','rawFluid');
-end
-
+function fluidModel = fluidModel(rawSleep,rawFluid,rawHeart)
 %% Convert, trim and sort data raw data
 %Table with sleepdate, the type of fluid is removed. 
 rawSleep(1,:) = [];
@@ -119,8 +108,8 @@ for i = 1:length(bodyWaterVolume)-1
     if(bodyWaterVolume(i+1) > 2000) %2000ml is the amount of fluid a human body can store in the stomach/intensine. Source:
        bodyWaterVolume(i+1) = 2000; %All fluid over 2000ml is removed, because there isn't space to absorb it in the body.
     end
-    if(bodyWaterVolume(i+1) < -3600) %The lowest level of fluid in the human body, 11 precent of body weight. Source:
-       bodyWaterVolume(i+1) = -3600;
+    if(bodyWaterVolume(i+1) < -9900) %The lowest level of fluid in the human body, 11 precent of body weight. Source:
+       bodyWaterVolume(i+1) = -9900;
     end
     timeOfDayMinutes = timeOfDayMinutes + 1;
     %Incrementing the time of day
@@ -138,7 +127,9 @@ end
 
 %% Plot
 S = startTime+minutes(1):minutes(1):endTime;
-plot(S,bodyWaterVolume)
-grid on;
-xlabel('Time (minutes)'); ylabel('Fluid balance (ml)');
-title('Model of Jacobs Fluid Balance');
+fluidModel = table(S,bodyWaterVolume);
+% plot(S,bodyWaterVolume)
+% grid on;
+% xlabel('Time (minutes)'); ylabel('Fluid balance (ml)');
+% title('Model of Jacobs Fluid Balance');
+end
