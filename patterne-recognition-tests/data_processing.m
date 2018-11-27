@@ -65,37 +65,28 @@ ha = find(data.Date==('2018-09-21-16-30-00'));
 hb = find(data.Date==('2018-09-21-22-00-00'));
 data.headache(ha:hb )=zeros;
 
-ha = find(data.Date==('2018-09-22-08-00-00'));
-hb = find(data.Date==('2018-09-22-09-00-00'));
-data.headache(ha:hb )=zeros;
-
-ha = find(data.Date==('2018-09-24-13-00-00'));
-hb = find(data.Date==('2018-09-24-14-30-00'));
+ha = find(data.Date==('2018-09-24-09-00-00'));
+hb = find(data.Date==('2018-09-24-22-00-00'));
 data.headache(ha:hb )=zeros;
 
 ha = find(data.Date==('2018-09-27-09-00-00'));
 hb = find(data.Date==('2018-09-27-22-00-00'));
 data.headache(ha:hb )=zeros;
 
-
-ha = find(data.Date==('2018-09-28-07-00-00'));
-hb = find(data.Date==('2018-09-28-22-30-00'));
-data.headache(ha:hb )=zeros;
-
-ha = find(data.Date==('2018-09-30-15-30-00'));
-hb = find(data.Date==('2018-09-30-22-00-00'));
-data.headache(ha:hb )=zeros;
-
-ha = find(data.Date==('2018-10-01-06-30-00'));
-hb = find(data.Date==('2018-10-01-10-00-00'));
+ha = find(data.Date==('2018-09-28-05-30-00'));
+hb = find(data.Date==('2018-09-28-07-00-00'));
 data.headache(ha:hb )=zeros;
 
 ha = find(data.Date==('2018-10-03-10-00-00'));
 hb = find(data.Date==('2018-10-03-15-00-00'));
 data.headache(ha:hb )=zeros;
 
-ha = find(data.Date==('2018-10-07-19-00-00'));
-hb = find(data.Date==('2018-10-07-20-00-00'));
+ha = find(data.Date==('2018-10-06-08-00-00'));
+hb = find(data.Date==('2018-10-06-15-00-00'));
+data.headache(ha:hb )=zeros;
+
+ha = find(data.Date==('2018-10-07-18-30-00'));
+hb = find(data.Date==('2018-10-07-19-00-00'));
 data.headache(ha:hb )=zeros;
 
 ha = find(data.Date==('2018-10-10-18-00-00'));
@@ -104,6 +95,10 @@ data.headache(ha:hb )=zeros;
 
 ha = find(data.Date==('2018-10-11-20-00-00'));
 hb = find(data.Date==('2018-10-11-22-00-00'));
+data.headache(ha:hb )=zeros;
+
+ha = find(data.Date==('2018-10-12-07-00-00'));
+hb = find(data.Date==('2018-10-12-10-00-00'));
 data.headache(ha:hb )=zeros;
 
 ha = find(data.Date==('2018-10-13-08-00-00'));
@@ -122,16 +117,24 @@ ha = find(data.Date==('2018-10-31-18-30-00'));
 hb = find(data.Date==('2018-10-31-19-30-00'));
 data.headache(ha:hb )=zeros;
 
-ha = find(data.Date==('2018-11-10-08-00-00'));
-hb = find(data.Date==('2018-11-10-09-00-00'));
+ha = find(data.Date==('2018-11-04-19-00-00'));
+hb = find(data.Date==('2018-11-04-22-00-00'));
 data.headache(ha:hb )=zeros;
 
-ha = find(data.Date==('2018-11-15-22-30-00'));
-hb = find(data.Date==('2018-11-15-23-30-00'));
+ha = find(data.Date==('2018-11-08-07-00-00'));
+hb = find(data.Date==('2018-11-08-22-00-00'));
 data.headache(ha:hb )=zeros;
 
-ha = find(data.Date==('2018-11-16-07-00-00'));
-hb = find(data.Date==('2018-11-16-16-00-00'));
+ha = find(data.Date==('2018-11-09-07-00-00'));
+hb = find(data.Date==('2018-11-09-10-00-00'));
+data.headache(ha:hb )=zeros;
+
+ha = find(data.Date==('2018-11-12-10-00-00'));
+hb = find(data.Date==('2018-11-12-19-00-00'));
+data.headache(ha:hb )=zeros;
+
+ha = find(data.Date==('2018-11-18-19-00-00'));
+hb = find(data.Date==('2018-11-18-22-00-00'));
 data.headache(ha:hb )=zeros;
 
 data(62093,:) = [];%Slet overlap mellem de to minutes_time

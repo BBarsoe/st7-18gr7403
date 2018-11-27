@@ -1,14 +1,17 @@
-%% Seguential feature selevtion
+%% Seguential feature selection
 X = testSamples;
 Y = testLabelVec;
 
-sbs = sequentialfs(@critfunc,X,Y,...
-    'cv','none',...
+c = cvpartition(Y,'k',5);
+opts = statset('display','iter');
+
+[fs,history] = sequentialfs(@critfunc,X,Y,...
+    'cv',c,...
     'nullmodel',true,...
-    'options',opt,...
-    'direction','backward');
+    'options',opts,...
+    'direction','forward');
 %%
-model = fitglm(X(:,sbs),Y,'Distribution','binomial')
+model = fitglm(X(:,fs),Y,'Distribution','binomial')
 %% Function
 function dev = critfunc(X,Y)
 %UNTITLED Summary of this function goes here
