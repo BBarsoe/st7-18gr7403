@@ -7,7 +7,7 @@ else
     rawSleep = importSleepData('fitbit_sleep_jacob.xls');
     rawFluid = importFluidData('fluid_jacob.xlsx'); 
     rawHeart = importHeartRate('female_data_heart.csv',2,444978);
-    save('rawData.mat','rawFluid','rawHeart','rawFluid');
+    save('rawData.mat','rawSleep','rawHeart','rawFluid');
 end
 
 %% Convert, trim and sort data raw data
@@ -40,8 +40,14 @@ clear rawHeart rawHeartTimeTable resizedHeartTimeTable
 if ~(isempty(find(ismember(datenum(sleepData{:,1}),datenum(startTime)),1)))
     sleepData(1:find(ismember(datenum(sleepData{:,1}),datenum(startTime)),1),:) = [];
 end
+if ~isempty(find(datenum(sleepData{:,1}) < datenum(startTime),1))
+    sleepData(find(datenum(sleepData{:,1}) < datenum(startTime),1):end,:) = [];
+end
 if ~(isempty(find(ismember(datenum(sleepData{:,2}),datenum(endTime)),1)))
     sleepData(find(ismember(datenum(sleepData{:,2}),datenum(endTime)),1):end,:) = [];
+end
+if ~isempty(find(datenum(sleepData{:,2}) > datenum(endTime),1))
+    sleepData(find(datenum(sleepData{:,2}) > datenum(endTime),1):end,:) = [];
 end
 if ~(isempty(find(ismember(datenum(heartData{:,1}),datenum(startTime)),1)))
     heartData(1:find(ismember(datenum(heartData{:,1}),datenum(startTime)),1),:) = [];
@@ -57,7 +63,7 @@ eatingDailyAmount = 1100;
 eatingAmount = eatingDistribution * ((1/sum(eatingDistribution)) * eatingDailyAmount);
 eatingAmountMinutes = 1:1440;
 for  i = 1:1440
-    eatingAmountMinutes(i) = eatingDistribution(ceil(i/60))* ((1/60) * eatingAmount(ceil(i/60)));
+    eatingAmountMinutes(i) = (1/60) * eatingAmount(ceil(i/60));
 end
 clear eatingTimes eatingDistribution eatingDailyAmount eatingAmount
 
@@ -67,7 +73,8 @@ clear eatingTimes eatingDistribution eatingDailyAmount eatingAmount
 %% Fluid Intake 
 %Define a double array from one to the difference between the first date
 %and last date in minutes
-fluidIntake = double(1:minutes(diff([startTime endTime])));
+fluidJournalIntake = double(1:minutes(diff([startTime endTime])));
+fluidJournalIntake(:) = 0;
 %1100ml per day is the amount of fluid a person get from food, therefor it
 %is added to the waterIntake. Source:
 
@@ -92,44 +99,46 @@ for i = height(fluidData):-1:2 %Loop through the FluidData table from the end to
    %Calculate the average fluid intake pr. second
    fluidIntake(minutes(diff([fluidData{1,1} nowTime])) - timeSince + 1:minutes(diff([fluidData{1,1} nowTime]))) = nowFluidIntake/timeSince;
 end
-
+fluidJournalIntake(1:length(fluidIntake)) = fluidIntake;
+%% Setup simulation
+timeOfDayMinutes = minutes(timeofday(startTime));
 %% Simulate the fluid balance
 %Define a double array from one to the difference between the first date and last date in seconds
-fluidBalance = double(1:minutes(diff([fluidData{1,1} fluidData{height(fluidData),1}])));
-fluidBalance(:) = 0; 
+bodyWaterVolume = double(1:minutes(diff([startTime endTime])));
+bodyWaterVolume(:) = 0; 
 %Premise in the model: The person have a fluidBalance at zero in the
 %beginning.
-x = 480;
-
-for i = 1:length(fluidBalance)
-    if(fluidBalance(i) > 0)
-       fluidOuttake = dayToMinute(2600); %2600ml is the average amount of fluid segregation per day for a person in rest. 1100ml from food, see line 28. Source:
-    else
-       fluidOuttake = dayToMinute((2/9)*fluidBalance(i)+2600);
-    end %The absorption in the body as a linear regression. Source:
-    
-    %Adding eating to intake
-    if x == 1440
-       x = 1; 
-    end
-    fluidIntake(i) = fluidIntake(i) * eatingAmountMinutes(x);
-    x = x + 1;
-    
+for i = 1:length(bodyWaterVolume)-1
     %Calculate the new fluidBalance
-    fluidBalance(i+1) = fluidBalance(i) + fluidIntake(i) - fluidOuttake;
+    bodyWaterVolume(i+1) = bodyWaterVolume(i)...
+        + fluidJournalIntake(i)...
+        + eatingAmountMinutes(timeOfDayMinutes)...
+        - sweatOutput(heartData{i,2},bodyWaterVolume(i),"male")...
+        - urineOutput(heartData{i,2},bodyWaterVolume(i));
     
-    if(fluidBalance(i+1) > 2000) %2000ml is the amount of fluid a human body can store in the stomach/intensine. Source:
-       fluidBalance(i+1) = 2000; %All fluid over 2000ml is removed, because there isn't space to absorb it in the body.
+    if(bodyWaterVolume(i+1) > 2000) %2000ml is the amount of fluid a human body can store in the stomach/intensine. Source:
+       bodyWaterVolume(i+1) = 2000; %All fluid over 2000ml is removed, because there isn't space to absorb it in the body.
     end
-    if(fluidBalance(i+1) < -3600) %The lowest level of fluid in the human body, 11 precent of body weight. Source:
-       fluidBalance(i+1) = -3600;
+    if(bodyWaterVolume(i+1) < -3600) %The lowest level of fluid in the human body, 11 precent of body weight. Source:
+       bodyWaterVolume(i+1) = -3600;
     end
+    timeOfDayMinutes = timeOfDayMinutes + 1;
+    %Incrementing the time of day
+    if timeOfDayMinutes == 1441
+       timeOfDayMinutes = 1; 
+    end
+%     clc;
+%     S = "BW = " + bodyWaterVolume(i) + ...
+%     " | FJI = " + fluidJournalIntake(i) + ...
+%     " | EAM = " + eatingAmountMinutes(timeOfDayMinutes) + ...
+%     " | SWO = " + sweatOutput(heartData{i,2},bodyWaterVolume(i),"male") + ...
+%     " | UO = " + urineOutput(heartData{i,2},bodyWaterVolume(i))
 end
 
 
 %% Plot
-S = fluidData{1,1}:minutes(1):fluidData{end,1};
-plot(S,fluidBalance)
+S = startTime+minutes(1):minutes(1):endTime;
+plot(S,bodyWaterVolume)
 grid on;
 xlabel('Time (minutes)'); ylabel('Fluid balance (ml)');
 title('Model of Jacobs Fluid Balance');
