@@ -1,4 +1,4 @@
-14th September
+﻿14th September
 One small glass at 6.55
 One liter netween 9 and 16.00
 One cup of coffee with milk at 10.00
@@ -55,8 +55,6 @@ Migraine starting around 19.00
 20th September
 2-250 mls of water
 2 coffees
-1 litre of water during office hours
-2-250 mls of water
 1 litre of water during office hours
 2-250 mls of beer
 Couple of sips of water before sleep
@@ -126,7 +124,6 @@ One zero cola 330 ml at 14.00
 Couple of sips of water before sleep
 
 29th September
-
 Couple of sips of water
 One coffee at 9.30
 2-250 mls of water at 12.20
@@ -175,7 +172,7 @@ Couple of sips of water before sleep
 5th October
 Couple of sips of water
 1 coffee at 9
-2-250 ml of water at 12.20
+2-250 ml of water at 12
 1 litre of water during office hours between 9 and 16.00
 Couple of sips of water before sleep
 1 litre of beer between 21.00 and midnight
@@ -220,7 +217,7 @@ Couple of sips of water after getting up
 One ikea cup of apple juice at 11
 1 litre of soup at 17.30
 Couple of sips of water before sleep
-Headache around 18.00
+Headache around 18.00-21:00
 
 11th October
 Couple of sips of water
@@ -230,10 +227,10 @@ Couple of sips of water
 One zero cola 330 ml at 13.30
 half a litre of cocoa at 14.30
 Couple of sips before sleep
-headache arund 20.00
+headache around 20.00-22:00
 
 12th October
-Headache still
+Headache still until 10:00
 Couple of sips of water
 2 coffees at 9 and 11
 2-250 mls of water at 12.30
@@ -263,7 +260,7 @@ Couple of sips of water
 1 zero cola at 11.30
 1 ikea cup of water at 12.30
 couple of sips of water before sleep
-Headache around 17.30
+Headache around 17.30-20:00
 
 16th October
 Couple of sips of water
@@ -282,7 +279,6 @@ Couple of sips of water
 200-250 ml of water at 12.30
 1 litre of soup at 18.30
 couple of sips of water before sleep
-
 
 18th October
 Couple of sips of water
@@ -418,7 +414,7 @@ Couple of sips of water after waking up
 2-250 mls of water at 12.00
 2 litres between 12.30 and 16.00
 2-250 mls at around 17.00
-Small headache around 18.30
+Small headache around 18.30-19:30
 Couple of sips before sleeping
 
 1st November
@@ -545,7 +541,7 @@ Headache from 10 to 19.00
 Couple of sips of water after waking up
 1 coffee at 5.40
 1 litre tea at 8
-1,5 litre between 8 and 12
+1,5 litre between 9 and 12
 2 litres between 13.00 and 16.00
 1 tea at 14.00
 2-250 mls at around 17.00
@@ -564,7 +560,6 @@ Half a litre of soup at 19.00
 Couple of sips before sleeping
 
 15th November
-Couple of sips of water after waking up
 1 coffee at 5.30
 1 coffee at 8
 1-1,5 litres between 9 and 12
