@@ -104,6 +104,9 @@ for i = height(fluidData):-1:2 %Loop through the FluidData table from the end to
    else
         timeSince = minutes(diff([previousFluid nowTime]));
    end
+   if timeSince > 240
+       timeSince = 240;
+   end
    %Calculate the average fluid intake pr. second
    fluidIntake(minutes(diff([startTime nowTime])) - timeSince + 1:minutes(diff([startTime nowTime]))) = nowFluidIntake/timeSince;
 end
