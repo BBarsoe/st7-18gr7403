@@ -1,4 +1,4 @@
-%% Headache Female 2 - Copy to processing file
+%% Headache Subject 2 - Copy to processing file
 
 data.headache(:) = ones;
 data.Properties.VariableNames{1} = 'Date';
