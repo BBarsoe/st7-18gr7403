@@ -1,17 +1,21 @@
 function fluidModel = fluidModel(rawSleep,rawFluid,rawHeart,gender)
 %% Convert, trim and sort data raw data
-%Table with sleepdate, the type of fluid is removed. 
-sleepData = table('Size',[height(rawSleep) 2],'VariableTypes',["datetime","datetime"],'VariableNames',["BedTime","WakeTime"]);
+%Table with sleepdate. 
+sleepData = table(...
+    'Size',[height(rawSleep) 2],...
+    'VariableTypes',["datetime","datetime"],...
+    'VariableNames',["BedTime","WakeTime"]);
 sleepData{:,1} = rawSleep{:,1};
 sleepData{:,2} = rawSleep{:,2};
 clear rawSleep
 
 %Table with fluiddata, the type of fluid is removed
-fluidData = table('Size',[height(rawFluid) 2],'VariableTypes',["datetime","double"],'VariableNames',["Time","Amount"]);
+fluidData = table(...
+    'Size',[height(rawFluid) 2],...
+    'VariableTypes',["datetime","double"],...
+    'VariableNames',["Time","Amount"]);
 fluidData{:,1} = rawFluid{:,1};
 fluidData{:,2} = rawFluid{:,2};
-startTime = fluidData{1,1};
-endTime = fluidData{end,1} + diff([fluidData{end,1} rawHeart{end,1}]);
 clear rawFluid
 
 %Table with heartRateData
@@ -20,22 +24,40 @@ resizedHeartTimeTable = retime(rawHeartTimeTable,'minutely','mean');
 heartData = timetable2table(resizedHeartTimeTable);
 clear rawHeart rawHeartTimeTable resizedHeartTimeTable
 
+%% Finding the start and ending times of the simulation.
+% Here the first record in the fluid journal is defined as a start time. As
+% no earlier time would yield any infomation
+% startTime = fluidData{1,1}; 
+
+startTime = max([sleepData{1,2} fluidData{1,1} heartData{1,1}]);
+
+% The latest timestamp in any data, heart, sleep or fluid is the final
+% timestamp.
+endTime = min([sleepData{end,2} fluidData{end,1} heartData{end,1}]);
 %% Syncing and cutting the data to match in time
 % Takes a dataset, convertes it into a number, and examines if the secound
 % number is contained in the dataset. If it is a member of, it returns the
 % index in the dataset. Otherwise it returns an empty vector. If the vector
 % is not empty the dataset is trimmed according to the found indexes.
-% if ~isempty(find(datenum(sleepData{:,1}) <= datenum(startTime),1))
-%     sleepData(1:find(datenum(sleepData{:,1}) <= datenum(startTime),1),:) = [];
-% end
-% if ~isempty(find(datenum(sleepData{:,2}) >= datenum(endTime),1))
-%     sleepData(find(datenum(sleepData{:,2}) >= datenum(endTime),1):end,:) = [];
-% end
-if ~(isempty(find(ismember(datenum(heartData{:,1}),datenum(startTime)),1)))
-    heartData(1:find(ismember(datenum(heartData{:,1}),datenum(startTime)),1),:) = [];
+if ~isempty(find(sleepData{:,2} < startTime,1,'last'))
+    sleepData(1:find(sleepData{:,2} < startTime,1,'last'),:) = [];
 end
-if ~(isempty(find(ismember(datenum(heartData{:,1}),datenum(endTime)),1)))
-    heartData(find(ismember(datenum(heartData{:,1}),datenum(endTime)),1):end,:) = [];
+if ~isempty(find(sleepData{:,2} < endTime,1,'last'))
+    sleepData(find(sleepData{:,2} < startTime,1,'last'):end,:) = [];
+end
+
+if ~isempty(find(fluidData{:,1} < startTime,1,'last'))
+    fluidData(1:find(fluidData{:,1} < startTime,1,'last'),:) = [];
+end
+if ~isempty(find(fluidData{:,1} > endTime,1,'last'))
+    fluidData(find(fluidData{:,1} > endTime,1,'last'):end,:) = [];
+end
+
+if ~isempty(find(heartData{:,1} < startTime,1,'last'))
+    heartData(1:find(heartData{:,1} < startTime,1,'last'),:) = [];
+end
+if ~isempty(find(heartData{:,1} > endTime,1,'last'))
+    heartData(find(heartData{:,1} > endTime,1,'last'):end,:) = [];
 end
 %% Create 'eating'- and 'sleeping'-tables
 %Eating table
@@ -47,7 +69,7 @@ eatingAmountMinutes = 1:1440;
 for  i = 1:1440
     eatingAmountMinutes(i) = (1/60) * eatingAmount(ceil(i/60));
 end
-clear eatingTimes eatingDistribution eatingDailyAmount eatingAmount
+clear eatingTimes eatingDistribution eatingDailyAmount eatingAmount i
 
 %Sleeping table
 
@@ -83,7 +105,7 @@ for i = height(fluidData):-1:2 %Loop through the FluidData table from the end to
         timeSince = minutes(diff([previousFluid nowTime]));
    end
    %Calculate the average fluid intake pr. second
-   fluidIntake(minutes(diff([fluidData{1,1} nowTime])) - timeSince + 1:minutes(diff([fluidData{1,1} nowTime]))) = nowFluidIntake/timeSince;
+   fluidIntake(minutes(diff([startTime nowTime])) - timeSince + 1:minutes(diff([startTime nowTime]))) = nowFluidIntake/timeSince;
 end
 fluidJournalIntake(1:length(fluidIntake)) = fluidIntake;
 %% Setup simulation

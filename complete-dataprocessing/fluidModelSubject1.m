@@ -6,7 +6,7 @@ addpath(genpath('water-model'));
 if isfile("data/rawDataSubject1.mat")
     load("data/rawDataSubject1.mat");
 else
-    rawData = importfile('subject1.xlsx');
+    rawData = importfile('data/subject1.xlsx');
     rawSteps = table(rawData{~isnat(rawData{:,1}),1}, rawData{~isnan(rawData{:,2}),2});
     rawHeart = table(rawData{~isnat(rawData{:,3}),3}, rawData{~isnan(rawData{:,4}),4});
     rawSleep = table(rawData{~isnat(rawData{:,5}),5}, rawData{~isnat(rawData{:,6}),6});
