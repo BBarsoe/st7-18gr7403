@@ -1,12 +1,20 @@
-clear; close all; clc;
+function result = fluidModelSubject1()
+%% Adding paths
+addpath(genpath('data'));
+addpath(genpath('water-model'));
 %% Load data
-if isfile("rawDataSubject1.mat")
-    load("rawDataSubject1.mat");
-else 
-    rawSleep = importSleepData('fitbit_sleep_jacob.xls');
-    rawFluid = importFluidData('fluid_jacob.xlsx'); 
-    rawHeart = importHeartRate('female_data_heart.csv',2,444978);
-    save('rawDataSubject1.mat','rawSleep','rawHeart','rawFluid');
+if isfile("data/rawDataSubject1.mat")
+    load("data/rawDataSubject1.mat");
+else
+    rawData = importfile('subject1.xlsx');
+    rawSteps = table(rawData{~isnat(rawData{:,1}),1}, rawData{~isnan(rawData{:,2}),2});
+    rawHeart = table(rawData{~isnat(rawData{:,3}),3}, rawData{~isnan(rawData{:,4}),4});
+    rawSleep = table(rawData{~isnat(rawData{:,5}),5}, rawData{~isnat(rawData{:,6}),6});
+    rawFluid = table(rawData{~isnat(rawData{:,7}),7}, rawData{~isnan(rawData{:,8}),8});
+    clear rawData;
+    save('data/rawDataSubject1.mat','rawSteps','rawHeart','rawSleep','rawFluid');
 end
 %% Run model
-subject1 = fluidModel(rawSleep,rawFluid,rawHeart);
+gender = "female";
+result = fluidModel(rawSleep,rawFluid,rawHeart,gender);
+end
