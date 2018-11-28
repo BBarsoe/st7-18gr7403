@@ -1,15 +1,4 @@
-clear; close all; clc;
-%% Water Model based on fluid data and sleep time data
-%% Load data
-if isfile("rawData.mat")
-    load("rawData.mat");
-else 
-    rawSleep = importSleepData('fitbit_sleep_jacob.xls');
-    rawFluid = importFluidData('fluid_jacob.xlsx'); 
-    rawHeart = importHeartRate('female_data_heart.csv',2,444978);
-    save('rawData.mat','rawSleep','rawHeart','rawFluid');
-end
-
+function fluidModel = fluidModel(rawSleep,rawFluid,rawHeart)
 %% Convert, trim and sort data raw data
 %Table with sleepdate, the type of fluid is removed. 
 rawSleep(1,:) = [];
@@ -74,6 +63,7 @@ clear eatingTimes eatingDistribution eatingDailyAmount eatingAmount
 %Define a double array from one to the difference between the first date
 %and last date in minutes
 fluidJournalIntake = double(1:minutes(diff([startTime endTime])));
+fluidJournalIntake(:) = 0;
 %1100ml per day is the amount of fluid a person get from food, therefor it
 %is added to the waterIntake. Source:
 
@@ -90,14 +80,15 @@ for i = height(fluidData):-1:2 %Loop through the FluidData table from the end to
    %distributed equal from the sleep EndTime to the time in the fluidData
    %table.
    if(previousFluid < wakeUpTime) 
-        timeSince = seconds(diff([wakeUpTime nowTime]));
+        timeSince = minutes(diff([wakeUpTime nowTime]));
         x = x - 1;
    else
-        timeSince = seconds(diff([previousFluid nowTime]));
+        timeSince = minutes(diff([previousFluid nowTime]));
    end
    %Calculate the average fluid intake pr. second
-   fluidIntake(seconds(diff([fluidData{1,1} nowTime])) - timeSince + 1:seconds(diff([fluidData{1,1} nowTime]))) = nowFluidIntake/timeSince;
+   fluidIntake(minutes(diff([fluidData{1,1} nowTime])) - timeSince + 1:minutes(diff([fluidData{1,1} nowTime]))) = nowFluidIntake/timeSince;
 end
+fluidJournalIntake(1:length(fluidIntake)) = fluidIntake;
 %% Setup simulation
 timeOfDayMinutes = minutes(timeofday(startTime));
 %% Simulate the fluid balance
@@ -114,29 +105,31 @@ for i = 1:length(bodyWaterVolume)-1
         - sweatOutput(heartData{i,2},bodyWaterVolume(i),"male")...
         - urineOutput(heartData{i,2},bodyWaterVolume(i));
     
-%     if(bodyWaterVolume(i+1) > 2000) %2000ml is the amount of fluid a human body can store in the stomach/intensine. Source:
-%        bodyWaterVolume(i+1) = 2000; %All fluid over 2000ml is removed, because there isn't space to absorb it in the body.
-%     end
-    if(bodyWaterVolume(i+1) < -3600) %The lowest level of fluid in the human body, 11 precent of body weight. Source:
-       bodyWaterVolume(i+1) = -3600;
+    if(bodyWaterVolume(i+1) > 2000) %2000ml is the amount of fluid a human body can store in the stomach/intensine. Source:
+       bodyWaterVolume(i+1) = 2000; %All fluid over 2000ml is removed, because there isn't space to absorb it in the body.
+    end
+    if(bodyWaterVolume(i+1) < -9900) %The lowest level of fluid in the human body, 11 precent of body weight. Source:
+       bodyWaterVolume(i+1) = -9900;
     end
     timeOfDayMinutes = timeOfDayMinutes + 1;
     %Incrementing the time of day
     if timeOfDayMinutes == 1441
        timeOfDayMinutes = 1; 
     end
-    clc;
-    S = "BW = " + bodyWaterVolume(i) + ...
-    " | FJI = " + fluidJournalIntake(i) + ...
-    " | EAM = " + eatingAmountMinutes(timeOfDayMinutes) + ...
-    " | SWO = " + sweatOutput(heartData{i,2},bodyWaterVolume(i),"male") + ...
-    " | UO = " + urineOutput(heartData{i,2},bodyWaterVolume(i))
+%     clc;
+%     S = "BW = " + bodyWaterVolume(i) + ...
+%     " | FJI = " + fluidJournalIntake(i) + ...
+%     " | EAM = " + eatingAmountMinutes(timeOfDayMinutes) + ...
+%     " | SWO = " + sweatOutput(heartData{i,2},bodyWaterVolume(i),"male") + ...
+%     " | UO = " + urineOutput(heartData{i,2},bodyWaterVolume(i))
 end
 
 
 %% Plot
 S = startTime+minutes(1):minutes(1):endTime;
-plot(S,bodyWaterVolume)
-grid on;
-xlabel('Time (minutes)'); ylabel('Fluid balance (ml)');
-title('Model of Jacobs Fluid Balance');
+fluidModel = table(S,bodyWaterVolume);
+% plot(S,bodyWaterVolume)
+% grid on;
+% xlabel('Time (minutes)'); ylabel('Fluid balance (ml)');
+% title('Model of Jacobs Fluid Balance');
+end
