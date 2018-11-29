@@ -1,22 +1,35 @@
 %% Seguential feature selection
-X = testSamples;
-Y = testLabelVec;
+%X = testSamples;
+%Y = testLabelVec;
 
-c = cvpartition(Y,'k',5);
-opts = statset('display','iter');
+n = 100;
+m = 10;
+X = rand(n,m);
+b = [1 0 0 2 .5 0 0 0.1 0 1];
+Xb = X*b';
+p = 1./(1+exp(-Xb));
+N = 50;
+y = binornd(N,p);
+Y = [y N*ones(size(y))];
+
+%%
+%c = cvpartition(Y,'k',5);
+maxdev = chi2inv(.95,1);
+opt = statset('display','iter',...
+                'Tolfun',maxdev,...
+                'TolTypeFun','abs');
 
 [fs,history] = sequentialfs(@critfunc,X,Y,...
-    'cv',c,...
+    'cv','none',...
     'nullmodel',true,...
-    'options',opts,...
+    'options',opt,...
     'direction','forward');
 %%
-model = fitglm(X(:,fs),Y,'Distribution','binomial')
+%model = fitglm(X(:,fs),Y,'Distribution','binomial')
 %% Function
 function dev = critfunc(X,Y)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
-model = fitglm(X,Y,'Distribution', 'binomial');
-dev = model.Deviance;
+[b,dev] = glmfit(X,Y, 'binomial');
 end
 
