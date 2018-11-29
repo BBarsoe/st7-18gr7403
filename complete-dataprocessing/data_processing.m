@@ -43,15 +43,20 @@ clear rawSteps
 
 %Table with heartRateData
 rawHeartTimeTable = table2timetable(rawHeart);
-resizedHeartTimeTable = retime(rawHeartTimeTable,'minutely','mean');
-resizedHeartTimeTable = retime(rawHeartTimeTable,'minutely','fillwithconstant','Constant',60);
+resizedHeartTimeTable = retime(rawHeartTimeTable,'minutely','mean'); 
 heartDataTimeTable = timetable2table(resizedHeartTimeTable);
+
+idx = (~isnan(heartDataTimeTable{:,2})); %non nans
+vr = heartDataTimeTable{idx,2}; %v non nan
+v2 = vr(cumsum(idx)); %use cumsum to build index into vr
+
+
 heartData = table(...
     'Size',[length(heartDataTimeTable{:,1}) 2],...
     'VariableTypes',["datetime","double"],...
     'VariableNames',["timestamp","value"]);
 heartData{:,1} = heartDataTimeTable{:,1};
-heartData{:,2} = heartDataTimeTable{:,2};
+heartData{:,2} = v2;
 clear rawHeart rawHeartTimeTable resizedHeartTimeTable heartDataTimeTable
 
 %Create a table with sleepdata.
