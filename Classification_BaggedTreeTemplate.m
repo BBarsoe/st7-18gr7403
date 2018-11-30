@@ -19,4 +19,17 @@ mdl3 = fitcensemble(Xtrain,Ytrain,'Method','Bag','Learners',t)
 y_pred3 = predict(mdl3,Xtest);
 confmat3 = confusionmat(Ytest,y_pred3);
 disp('Confusion Matrix - with surrogates')
+
+%% TreeBagger - Importance
+Mdl = TreeBagger(50,X,y,'Method','classification',...
+    'PredictorSelection','curvature','OOBPredictorImportance','on');
+%% Feature importance
+imp = Mdl.OOBPermutedPredictorDeltaError;
+figure;
+bar(imp);
+xlabel('Features');
+ylabel('Feature importance estimates');
+h = gca;
+h.XTickLabel = Mdl.PredictorNames;
+h.XTickLabelRotation = 45;
 disp(confmat3)
