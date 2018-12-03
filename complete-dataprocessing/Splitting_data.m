@@ -21,9 +21,9 @@ for i=1:round(length(All_dates)/7)
 end
 %% extrating data from featuresData to validation set based on days randomly picked in dates_to_validations_set
 k=1;
-for i=0:(length(dates_to_validations_set))
+for i=1:(length(dates_to_validations_set))
     for j=1:length(featuresData.hour)
-        if (day(dates_to_validations_set(i+1,1),'dayofyear') == day(featuresData.hour(j),'dayofyear'))
+        if (day(dates_to_validations_set(i,1),'dayofyear') == day(featuresData.hour(j),'dayofyear'))
             validation_set(k,:) = table(featuresData.hour(j),featuresData.heart(j),featuresData.heart_diff(j),...
                 featuresData.heart_diff_movmax(j),featuresData.heart_diff_movmean(j),featuresData.heart_diff_movmin(j),...
                 featuresData.heart_movmedian_1h(j),featuresData.heart_movmean_1h(j),featuresData.heart_movmin_1h(j),...
@@ -48,8 +48,8 @@ for i=0:(length(dates_to_validations_set))
                 featuresData.step_movstd_2h_delay_5h(j),featuresData.step_movmean_1m_delay_5m(j),...
                 featuresData.step_movmean_5m_delay_15m(j),featuresData.step_movmean_15m_delay_1h(j),...
                 featuresData.step_movmean_2h_delay_5h(j),featuresData.fluidmodel(j),featuresData.headache(j));
-            k=k+1;
             row_number(k,1) = j;
+            k=k+1;
         end
     end
         
@@ -131,7 +131,7 @@ validation_set.Properties.VariableNames{63} ='fluidmodel';
 % Headache
 validation_set.Properties.VariableNames{64} = 'headache';
 %% Delete valdiation data from featuresData
-row_number = flip(row_number);
+row_number = flip(row_number);  
 for i=1:length(row_number)
     featuresData(row_number(i),:) = [];
 end
@@ -141,6 +141,7 @@ P = 0.70 ; % train = 70% of data and test = 30%
 idx = randperm(m)  ; % scrambling the data
 Training = featuresData(idx(1:round(P*m)),:) ;
 Testing = featuresData(idx(round(P*m)+1:end),:) ;
-    
 
+%%
+% clearvars -except  
 
