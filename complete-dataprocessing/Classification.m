@@ -1,8 +1,8 @@
 train_predictors = Training(:,2:63);
 train_response = Training.headache;
 
-test_prefictors = Testing(:,2:63);
-test_response = Testing.headache;
+validation_prefictors = ValidationSet(:,2:63);
+validation_response = ValidationSet.headache;
 %% Classification
 
 % RUSBoost
