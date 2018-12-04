@@ -92,4 +92,24 @@ title('Algorithm Comparison')
 
 
 %% Predict on vaildation set
+label_RandomForest = predict(RandomForest_model,ValidationSet(:,2:63));
+label_RUSBoost = predict(RUSBoost_model,ValidationSet(:,2:63));
 
+figure(1)
+plotconfusion(label_RandomForest',ValidationSet.headache','Confusionmatrix using RandomForest Model');
+
+figure(2)
+plotconfusion(label_RUSBoost',ValidationSet.headache','Confusionmatirx using RUSBoost Model')
+
+figure(3)
+
+subplot(2,1,1)
+cm_forset = confusionchart(ValidationSet.headache',label_RandomForest');
+cm_forset.Title = 'Confusionmatrix using RandomForest Model';
+cm_forset.RowSummary = 'row-normalized';
+cm_forset.ColumnSummary = 'column-normalized';
+subplot(2,1,2)
+cm_RUSBoost = confusionchart(ValidationSet.headache',label_RUSBoost');
+cm_RUSBoost.Title = 'Confusionmatrix using RUSBoost Model';
+cm_RUSBoost.RowSummary = 'row-normalized';
+cm_RUSBoost.ColumnSummary = 'column-normalized';
