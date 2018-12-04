@@ -54,5 +54,5 @@ boxplot(L,'Labels',{'RUSBoost' 'RandomForeset'})
 title('Algorithm Comparison')
 
 
-%% Predict on test set
+%% Predict on vaildation set
 

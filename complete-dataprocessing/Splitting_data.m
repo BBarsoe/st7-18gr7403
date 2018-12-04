@@ -143,5 +143,5 @@ Training = featuresData(idx(1:round(P*m)),:) ;
 ValidationSet = featuresData(idx(round(P*m)+1:end),:) ;
 
 %%
-% clearvars -except Training Testing featuresData row_number validation_set dates_to_validations_set
+clearvars -except Training Test_set featuresData row_number ValidationSet dates_to_Test_set
 
