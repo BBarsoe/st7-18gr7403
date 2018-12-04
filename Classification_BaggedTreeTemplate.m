@@ -37,7 +37,7 @@ grid on;
 xlabel('Predictor (features)');
 ylabel('Predictor importance estimates');
 h =  gca;
-h.XTick = [1:2:62 63];
+h.XTick = 0:1:62;
 h.XTickLabel = featuresData.Properties.VariableNames; %Denne skal rettes til, hvis plottet laves for et udvalgt antal features.
 h.XTickLabelRotation = 45;
 
