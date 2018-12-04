@@ -14,22 +14,36 @@ Ytest = Y(test(cv));
 %% Make treeTemplate of type BaggedTree
 t = templateTree('Surrogate','on')
 %% Train the model
-mdl3 = fitcensemble(Xtrain,Ytrain,'Method','Bag','Learners',t)
+mdl = fitcensemble(Xtrain,Ytrain,'Method','Bag','Learners',t)
 %% Test the model on test data
-y_pred3 = predict(mdl3,Xtest);
-confmat3 = confusionmat(Ytest,y_pred3);
+y_pred3 = predict(mdl,Xtest);
+confmat3 = confusionmat(Ytest,y_pred3)
 disp('Confusion Matrix - with surrogates')
-
-%% TreeBagger - Importance
-Mdl = TreeBagger(50,X,y,'Method','classification',...
-    'PredictorSelection','curvature','OOBPredictorImportance','on');
-%% Feature importance
-imp = Mdl.OOBPermutedPredictorDeltaError;
-figure;
-bar(imp);
-xlabel('Features');
-ylabel('Feature importance estimates');
-h = gca;
-h.XTickLabel = Mdl.PredictorNames;
-h.XTickLabelRotation = 45;
 disp(confmat3)
+%% PCA on classifier model
+coeff = pca(mdl.X); %coeff = eigenvalues
+[varians, feature_idx] = sort(coeff, 'descend');
+selected_pcaData = featuresData(:,feature_idx(1:20)); %Select twenty features with the highest varians.
+%% biplot of PCA
+figure(3)
+mapcaplot(coeff)
+%biplot(coeff)
+%% Predictor Importance
+imp = predictorImportance(mdl);
+figure(2)
+bar(imp);
+grid on;
+xlabel('Predictor (features)');
+ylabel('Predictor importance estimates');
+h =  gca;
+h.XTick = [1:2:62 63];
+h.XTickLabel = featuresData.Properties.VariableNames;
+h.XTickLabelRotation = 45;
+z=1;
+for i=1:length(imp)
+    if imp(i) > 0.7*10^-5
+        selected_predictorData(z) = featuresData(:,1); %Fejl her
+        z = z+1;
+    end
+end
+%Select the featuresData with importence higher than 0.7
