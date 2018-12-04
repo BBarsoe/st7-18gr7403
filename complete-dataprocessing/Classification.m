@@ -86,7 +86,7 @@ validationAccuracy(1,2) = 1 - kfoldLoss(partitionedModel_forest, 'LossFun', 'Cla
  
 %% Compareing classifications accuracy
 close
-figure;
+figure(2)
 boxplot(L,'Labels',{'RUSBoost' 'RandomForeset'})
 title('Algorithm Comparison')
 
@@ -95,14 +95,13 @@ title('Algorithm Comparison')
 label_RandomForest = predict(RandomForest_model,ValidationSet(:,2:63));
 label_RUSBoost = predict(RUSBoost_model,ValidationSet(:,2:63));
 
-figure(1)
+figure(3)
 plotconfusion(label_RandomForest',ValidationSet.headache','Confusionmatrix using RandomForest Model');
 
-figure(2)
+figure(4)
 plotconfusion(label_RUSBoost',ValidationSet.headache','Confusionmatirx using RUSBoost Model')
 
-figure(3)
-
+figure(5)
 subplot(2,1,1)
 cm_forset = confusionchart(ValidationSet.headache',label_RandomForest');
 cm_forset.Title = 'Confusionmatrix using RandomForest Model';
