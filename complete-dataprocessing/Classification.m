@@ -3,10 +3,10 @@ Training.hour = hour(Training.hour);
 ValidationSet.hour = hour(ValidationSet.hour);
 Test_set.hour = hour(Test_set.hour);
 %% Creating trainingset and validationset
-train_predictors = Training(:,2:63);
+train_predictors = Training(:,1:63);
 train_response = Training.headache;
 
-validation_prefictors = ValidationSet(:,2:63);
+validation_prefictors = ValidationSet(:,1:63);
 validation_response = ValidationSet.headache;
 %% Classification
 
@@ -32,13 +32,13 @@ RandomForest_model = fitcensemble(...
     'ClassNames', [0; 1]);
 
 %% PCA on RUSBoost
-RUSBoost_pca = table2array(RUSBoost_model.X(:,1:62));
+RUSBoost_pca = table2array(RUSBoost_model.X(:,1:63));
 coeff = pca(RUSBoost_pca); %coeff = eigenvalues
 [varians, feature_idx] = sort(coeff, 'descend');
 selected_pca_RUSBoost = featuresData(:,feature_idx(1:20)); %Select twenty features with the highest varians.
 
 %% PCA on Random Forest
-RandomForest_pca = table2array(RandomForest_model.X(:,1:62));
+RandomForest_pca = table2array(RandomForest_model.X(:,1:63));
 coeff = pca(RandomForest_pca); %coeff = eigenvalues
 [varians, feature_idx] = sort(coeff, 'descend');
 selected_pca_RandomForest = featuresData(:,feature_idx(1:20)); %Select twenty features with the highest varians.
@@ -52,7 +52,7 @@ title('RUSBoost');
 xlabel('Predictors');
 ylabel('Predictor importance estimates');
 h =  gca;
-h.XTick = 0:1:62;
+h.XTick = 0:1:63;
 h.XTickLabel = featuresData.Properties.VariableNames; %Denne skal rettes til, hvis plottet laves for et udvalgt antal features.
 h.XTickLabelRotation = 45;
 
@@ -65,7 +65,7 @@ title('RandomForest');
 xlabel('Predictors');
 ylabel('Predictor importance estimates');
 h =  gca;
-h.XTick = 0:1:62;
+h.XTick = 0:1:63;
 h.XTickLabel = featuresData.Properties.VariableNames; %Denne skal rettes til, hvis plottet laves for et udvalgt antal features.
 h.XTickLabelRotation = 45;
 
@@ -97,8 +97,8 @@ title('Algorithm Comparison')
 
 
 %% Predict on vaildation set
-label_RandomForest = predict(RandomForest_model,ValidationSet(:,2:63));
-label_RUSBoost = predict(RUSBoost_model,ValidationSet(:,2:63));
+label_RandomForest = predict(RandomForest_model,ValidationSet(:,1:63));
+label_RUSBoost = predict(RUSBoost_model,ValidationSet(:,1:63));
 
 figure(3)
 plotconfusion(label_RandomForest',ValidationSet.headache','Confusionmatrix using RandomForest Model');
