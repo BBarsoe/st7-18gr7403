@@ -58,26 +58,26 @@ title('Algorithm Comparison')
 
 %% PCA RUSBoost
 RUSBoost_model_pca = trainClassifier_RUSBoost(Training);
-RUSBoost_label_pca = RUSBoost_model_pca.predictFcn(validation_prefictors);
+RUSBoost_label_pca = RUSBoost_model_pca.predictFcn(validation_predictors);
 figure(3)
-plotconfusion(RUSBoost_label_pca',validation_response','Confusionmatrix using RUSBoost Model')
+plotconfusion(RUSBoost_label_pca',validation_response','RUSBoost Model, pca=30, validationdata - ')
 
 %% PCA RandomForest
 RandomForest_model_pca = trainClassifier_RandomForest(Training);
-RandomForest_label_pca = RandomForest_model_pca.predictFcn(validation_prefictors);
+RandomForest_label_pca = RandomForest_model_pca.predictFcn(validation_predictors);
 figure(4)
-plotconfusion(RandomForest_label_pca',validation_response','Confusionmatrix using RandomForest Model');
+plotconfusion(RandomForest_label_pca',validation_response','RandomForest Model, pca=30, validationdata - ');
 
 %% Confusionmatrix for both PCA and RandomForest
 figure(5)
 subplot(2,1,1)
 cm_forset = confusionchart(validation_response',RandomForest_label_pca');
-cm_forset.Title = 'Confusionmatrix using RandomForest Model';
+cm_forset.Title = 'Confusionmatrix using RandomForest Model, pca=30';
 cm_forset.RowSummary = 'row-normalized';
 cm_forset.ColumnSummary = 'column-normalized';
 subplot(2,1,2)
 cm_RUSBoost = confusionchart(validation_response',RUSBoost_label_pca');
-cm_RUSBoost.Title = 'Confusionmatrix using RUSBoost Model';
+cm_RUSBoost.Title = 'Confusionmatrix using RUSBoost Model, pca=30';
 cm_RUSBoost.RowSummary = 'row-normalized';
 cm_RUSBoost.ColumnSummary = 'column-normalized';
 
@@ -86,25 +86,27 @@ imp_RUSBoost = predictorImportance(RUSBoost_model);
 figure(1)
 bar(imp_RUSBoost);
 grid on;
-title('RUSBoost');
+title('Predictor Importance at RUSBoost model at training data');
 xlabel('Predictors');
 ylabel('Predictor importance estimates');
 h =  gca;
-h.XTick = 0:1:63;
-h.XTickLabel = featuresData.Properties.VariableNames; %Denne skal rettes til, hvis plottet laves for et udvalgt antal features.
+h.XTick = 1:1:63;
+h.XTickLabel = Training.Properties.VariableNames; %Denne skal rettes til, hvis plottet laves for et udvalgt antal features.
 h.XTickLabelRotation = 45;
+
+%% Create table of important predictors
 
 %% Predictor Importance on RandomForest
 imp_RandomForest = predictorImportance(RandomForest_model);
 figure(2)
 bar(imp_RandomForest);
 grid on;
-title('RandomForest');
+title('Predictor Importance at RandomForest model at training data');
 xlabel('Predictors');
 ylabel('Predictor importance estimates');
 h =  gca;
-h.XTick = 0:1:63;
-h.XTickLabel = featuresData.Properties.VariableNames; %Denne skal rettes til, hvis plottet laves for et udvalgt antal features.
+h.XTick = 1:1:63;
+h.XTickLabel = Training.Properties.VariableNames; %Denne skal rettes til, hvis plottet laves for et udvalgt antal features.
 h.XTickLabelRotation = 45;
 
 
