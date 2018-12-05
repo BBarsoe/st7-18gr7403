@@ -71,12 +71,12 @@ plotconfusion(RandomForest_label_pca',validation_response','RandomForest Model, 
 %% Confusionmatrix for both PCA and RandomForest
 figure(5)
 subplot(2,1,1)
-cm_forset = confusionchart(validation_response',RandomForest_label_pca');
+cm_forset = confusionchart(validation_response,RandomForest_label_pca);
 cm_forset.Title = 'Confusionmatrix using RandomForest Model, pca=30';
 cm_forset.RowSummary = 'row-normalized';
 cm_forset.ColumnSummary = 'column-normalized';
 subplot(2,1,2)
-cm_RUSBoost = confusionchart(validation_response',RUSBoost_label_pca');
+cm_RUSBoost = confusionchart(validation_response,RUSBoost_label_pca);
 cm_RUSBoost.Title = 'Confusionmatrix using RUSBoost Model, pca=30';
 cm_RUSBoost.RowSummary = 'row-normalized';
 cm_RUSBoost.ColumnSummary = 'column-normalized';
@@ -109,6 +109,8 @@ h.XTick = 1:1:63;
 h.XTickLabel = Training.Properties.VariableNames; %Denne skal rettes til, hvis plottet laves for et udvalgt antal features.
 h.XTickLabelRotation = 45;
 
+%% Create table of important predictors
+imp_RandomForest_table = table(
 
 %% Predict on vaildation set
 label_RandomForest = predict(RandomForest_model,ValidationSet(:,1:63));
@@ -122,12 +124,12 @@ plotconfusion(label_RUSBoost',validation_response','Confusionmatrix using RUSBoo
 
 figure(5)
 subplot(2,1,1)
-cm_forset = confusionchart(ValidationSet.headache',label_RandomForest');
+cm_forset = confusionchart(ValidationSet.headache,label_RandomForest);
 cm_forset.Title = 'Confusionmatrix using RandomForest Model';
 cm_forset.RowSummary = 'row-normalized';
 cm_forset.ColumnSummary = 'column-normalized';
 subplot(2,1,2)
-cm_RUSBoost = confusionchart(ValidationSet.headache',label_RUSBoost');
+cm_RUSBoost = confusionchart(ValidationSet.headache,label_RUSBoost);
 cm_RUSBoost.Title = 'Confusionmatrix using RUSBoost Model';
 cm_RUSBoost.RowSummary = 'row-normalized';
 cm_RUSBoost.ColumnSummary = 'column-normalized';
