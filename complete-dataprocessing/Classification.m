@@ -60,24 +60,24 @@ title('Algorithm Comparison')
 RUSBoost_model_pca = trainClassifier_RUSBoost(Training);
 RUSBoost_label_pca = RUSBoost_model_pca.predictFcn(validation_predictors);
 figure(3)
-plotconfusion(RUSBoost_label_pca',validation_response','RUSBoost Model, pca=30, validationdata - ')
+plotconfusion(RUSBoost_label_pca',validation_response','Subject xx, RUSBoost Model, pca=15, validationdata - ')
 
 %% PCA RandomForest
 RandomForest_model_pca = trainClassifier_RandomForest(Training);
 RandomForest_label_pca = RandomForest_model_pca.predictFcn(validation_predictors);
 figure(4)
-plotconfusion(RandomForest_label_pca',validation_response','RandomForest Model, pca=30, validationdata - ');
+plotconfusion(RandomForest_label_pca',validation_response','Subject xx, RandomForest Model, pca=15, validationdata - ');
 
 %% Confusionmatrix for both PCA and RandomForest
 figure(5)
 subplot(2,1,1)
 cm_forset = confusionchart(validation_response,RandomForest_label_pca);
-cm_forset.Title = 'Confusionmatrix using RandomForest Model, pca=30';
+cm_forset.Title = 'Subject xx, Confusionmatrix using RandomForest Model, pca=15';
 cm_forset.RowSummary = 'row-normalized';
 cm_forset.ColumnSummary = 'column-normalized';
 subplot(2,1,2)
 cm_RUSBoost = confusionchart(validation_response,RUSBoost_label_pca);
-cm_RUSBoost.Title = 'Confusionmatrix using RUSBoost Model, pca=30';
+cm_RUSBoost.Title = 'Subject xx, Confusionmatrix using RUSBoost Model, pca=15';
 cm_RUSBoost.RowSummary = 'row-normalized';
 cm_RUSBoost.ColumnSummary = 'column-normalized';
 
@@ -95,7 +95,13 @@ h.XTickLabel = Training.Properties.VariableNames; %Denne skal rettes til, hvis p
 h.XTickLabelRotation = 45;
 
 %% Create table of important predictors
-
+imp_RUSBoost_table = table(train_predictors.fluidmodel); %Ikke færdig
+RUSBoost_model = fitcensemble(imp_RUSBoost_table,train_response,...
+    'Method','RUSBoost',...
+    'NumLearningCycles', 30,'Learners',...
+    template_RUSBoost,...
+    'LearnRate', 0.1, ...
+    'ClassNames', [0; 1]);
 %% Predictor Importance on RandomForest
 imp_RandomForest = predictorImportance(RandomForest_model);
 figure(2)
@@ -110,26 +116,32 @@ h.XTickLabel = Training.Properties.VariableNames; %Denne skal rettes til, hvis p
 h.XTickLabelRotation = 45;
 
 %% Create table of important predictors
-imp_RandomForest_table = table(
-
+imp_RUSBoost_table = table(train_predictors.fluidmodel,train_predictors.sleepaverage,train_predictors.hour,train_predictors.heart_diff_movmin,train_predictors.heart_movstd_2h_delay_5h,train_predictors.heart_movmin_1h,train_predictors.heart_diff_movmax,train_predictors.heart_movmean_2h_delay_5h,train_predictors.steps_movmax,train_predictors.step_movmean_2h_delay_5h,train_predictors.step_movstd_2h_delay_5h,train_predictors.heart_movmax_1h,train_predictors.heart_movmedian_1h,train_predictors.heart_movmean_15m_delay_1h,train_predictors.heart_movstd_1h); 
+RandomForest_model = fitcensemble(...
+    imp_RUSBoost_table, ...
+    train_response, ...
+    'Method', 'Bag', ...
+    'NumLearningCycles', 30, ...
+    'Learners', template_forest, ...
+    'ClassNames', [0; 1]);
 %% Predict on vaildation set
 label_RandomForest = predict(RandomForest_model,ValidationSet(:,1:63));
 label_RUSBoost = predict(RUSBoost_model,ValidationSet(:,1:63));
 
 figure(3)
-plotconfusion(label_RandomForest',ValidationSet.headache','Confusionmatrix using RandomForest Model');
+plotconfusion(label_RandomForest',ValidationSet.headache','Subject 3, Confusionmatrix using RandomForest Model');
 
 figure(4)
-plotconfusion(label_RUSBoost',validation_response','Confusionmatrix using RUSBoost Model')
+plotconfusion(label_RUSBoost',validation_response','Subject 3, Confusionmatrix using RUSBoost Model')
 
 figure(5)
 subplot(2,1,1)
 cm_forset = confusionchart(ValidationSet.headache,label_RandomForest);
-cm_forset.Title = 'Confusionmatrix using RandomForest Model';
+cm_forset.Title = 'Subject 3, Confusionmatrix using RandomForest Model';
 cm_forset.RowSummary = 'row-normalized';
 cm_forset.ColumnSummary = 'column-normalized';
 subplot(2,1,2)
 cm_RUSBoost = confusionchart(ValidationSet.headache,label_RUSBoost);
-cm_RUSBoost.Title = 'Confusionmatrix using RUSBoost Model';
+cm_RUSBoost.Title = 'Subject 3, Confusionmatrix using RUSBoost Model';
 cm_RUSBoost.RowSummary = 'row-normalized';
 cm_RUSBoost.ColumnSummary = 'column-normalized';

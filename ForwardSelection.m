@@ -11,7 +11,9 @@ p = 1./(1+exp(-Xb));
 N = 50;
 y = binornd(N,p);
 Y = [y N*ones(size(y))];
-
+%%
+X = table2array(RUSBoost_model.X);
+Y = RUSBoost_model.Y;
 %%
 %c = cvpartition(Y,'k',5);
 maxdev = chi2inv(.95,1);
