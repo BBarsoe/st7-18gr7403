@@ -1,3 +1,8 @@
+%% Hour from datetime to hour
+Training.hour = hour(Training.hour);
+ValidationSet.hour = hour(ValidationSet.hour);
+Test_set.hour = hour(Test_set.hour);
+%% Creating trainingset and validationset
 train_predictors = Training(:,2:63);
 train_response = Training.headache;
 
