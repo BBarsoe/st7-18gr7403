@@ -6,7 +6,7 @@ Test_set.hour = hour(Test_set.hour);
 train_predictors = Training(:,1:63);
 train_response = Training.headache;
 
-validation_prefictors = ValidationSet(:,1:63);
+validation_predictors = ValidationSet(:,1:63);
 validation_response = ValidationSet.headache;
 %% Classification
 
@@ -31,17 +31,55 @@ RandomForest_model = fitcensemble(...
     'Learners', template_forest, ...
     'ClassNames', [0; 1]);
 
-%% PCA on RUSBoost
-RUSBoost_pca = table2array(RUSBoost_model.X(:,1:63));
-coeff = pca(RUSBoost_pca); %coeff = eigenvalues
-[varians, feature_idx] = sort(coeff, 'descend');
-selected_pca_RUSBoost = featuresData(:,feature_idx(1:20)); %Select twenty features with the highest varians.
+%% Perform cross-validation
+partitionedModel_RUSBoost = crossval(RUSBoost_model, 'KFold', 5);
+partitionedModel_forest = crossval(RandomForest_model, 'KFold', 5);
 
-%% PCA on Random Forest
-RandomForest_pca = table2array(RandomForest_model.X(:,1:63));
-coeff = pca(RandomForest_pca); %coeff = eigenvalues
-[varians, feature_idx] = sort(coeff, 'descend');
-selected_pca_RandomForest = featuresData(:,feature_idx(1:20)); %Select twenty features with the highest varians.
+%% Compute validation predictions
+[validationPredictions_RUSBoost, validationScores_RUSBoost] = kfoldPredict(partitionedModel_RUSBoost);
+cp_RUSBoost = classperf(Training.headache);
+classperf(cp_RUSBoost,validationPredictions_RUSBoost);
+sen_spe_RUSBoost = [cp_RUSBoost.Sensitivity,cp_RUSBoost.Specificity]
+[validationPredictions_forest, validationScores_forest] = kfoldPredict(partitionedModel_forest);
+cp_forest = classperf(Training.headache);
+classperf(cp_forest,validationPredictions_forest);
+sen_spe_forest = [cp_forest.Sensitivity,cp_forest.Specificity]
+%% Compute validation accuracy
+validationAccuracy(1,1) = 1 - kfoldLoss(partitionedModel_RUSBoost, 'LossFun', 'ClassifError');
+validationAccuracy(1,2) = 1 - kfoldLoss(partitionedModel_forest, 'LossFun', 'ClassifError')
+ L(:,1) = (1-kfoldLoss(partitionedModel_RUSBoost,'mode','individual'));
+ L(:,2) = (1-kfoldLoss(partitionedModel_forest,'mode','individual'));
+ 
+%% Comparing classifications accuracy
+close
+figure(2)
+boxplot(L,'Labels',{'RUSBoost' 'RandomForest'})
+title('Algorithm Comparison')
+
+%% PCA RUSBoost
+RUSBoost_model_pca = trainClassifier_RUSBoost(Training);
+RUSBoost_label_pca = RUSBoost_model_pca.predictFcn(validation_prefictors);
+figure(3)
+plotconfusion(RUSBoost_label_pca',validation_response','Confusionmatrix using RUSBoost Model')
+
+%% PCA RandomForest
+RandomForest_model_pca = trainClassifier_RandomForest(Training);
+RandomForest_label_pca = RandomForest_model_pca.predictFcn(validation_prefictors);
+figure(4)
+plotconfusion(RandomForest_label_pca',validation_response','Confusionmatrix using RandomForest Model');
+
+%% Confusionmatrix for both PCA and RandomForest
+figure(5)
+subplot(2,1,1)
+cm_forset = confusionchart(validation_response',RandomForest_label_pca');
+cm_forset.Title = 'Confusionmatrix using RandomForest Model';
+cm_forset.RowSummary = 'row-normalized';
+cm_forset.ColumnSummary = 'column-normalized';
+subplot(2,1,2)
+cm_RUSBoost = confusionchart(validation_response',RUSBoost_label_pca');
+cm_RUSBoost.Title = 'Confusionmatrix using RUSBoost Model';
+cm_RUSBoost.RowSummary = 'row-normalized';
+cm_RUSBoost.ColumnSummary = 'column-normalized';
 
 %% Predictor Importance on RUSBoost
 imp_RUSBoost = predictorImportance(RUSBoost_model);
@@ -69,32 +107,6 @@ h.XTick = 0:1:63;
 h.XTickLabel = featuresData.Properties.VariableNames; %Denne skal rettes til, hvis plottet laves for et udvalgt antal features.
 h.XTickLabelRotation = 45;
 
-%% Perform cross-validation
-partitionedModel_RUSBoost = crossval(RUSBoost_model, 'KFold', 5);
-partitionedModel_forest = crossval(RandomForest_model, 'KFold', 5);
-
-%% Compute validation predictions
-[validationPredictions_RUSBoost, validationScores_RUSBoost] = kfoldPredict(partitionedModel_RUSBoost);
-cp_RUSBoost = classperf(Training.headache);
-classperf(cp_RUSBoost,validationPredictions_RUSBoost);
-sen_spe_RUSBoost = [cp_RUSBoost.Sensitivity,cp_RUSBoost.Specificity]
-[validationPredictions_forest, validationScores_forest] = kfoldPredict(partitionedModel_forest);
-cp_forest = classperf(Training.headache);
-classperf(cp_forest,validationPredictions_forest);
-sen_spe_forest = [cp_forest.Sensitivity,cp_forest.Specificity]
-%% Compute validation accuracy
-validationAccuracy(1,1) = 1 - kfoldLoss(partitionedModel_RUSBoost, 'LossFun', 'ClassifError');
-validationAccuracy(1,2) = 1 - kfoldLoss(partitionedModel_forest, 'LossFun', 'ClassifError')
- L(:,1) = (1-kfoldLoss(partitionedModel_RUSBoost,'mode','individual'));
- L(:,2) = (1-kfoldLoss(partitionedModel_forest,'mode','individual'));
- 
- 
-%% Compareing classifications accuracy
-close
-figure(2)
-boxplot(L,'Labels',{'RUSBoost' 'RandomForeset'})
-title('Algorithm Comparison')
-
 
 %% Predict on vaildation set
 label_RandomForest = predict(RandomForest_model,ValidationSet(:,1:63));
@@ -104,7 +116,7 @@ figure(3)
 plotconfusion(label_RandomForest',ValidationSet.headache','Confusionmatrix using RandomForest Model');
 
 figure(4)
-plotconfusion(label_RUSBoost',ValidationSet.headache','Confusionmatirx using RUSBoost Model')
+plotconfusion(label_RUSBoost',validation_response','Confusionmatrix using RUSBoost Model')
 
 figure(5)
 subplot(2,1,1)
