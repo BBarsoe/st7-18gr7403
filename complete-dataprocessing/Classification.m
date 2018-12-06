@@ -60,24 +60,24 @@ title('Algorithm Comparison')
 RUSBoost_model_pca = trainClassifier_RUSBoost(Training);
 RUSBoost_label_pca = RUSBoost_model_pca.predictFcn(validation_predictors);
 figure(3)
-plotconfusion(RUSBoost_label_pca',validation_response','Subject xx, RUSBoost Model, pca=15, validationdata - ')
+plotconfusion(RUSBoost_label_pca',validation_response','Subject 2, RUSBoost Model, pca=30, validationdata - ')
 
 %% PCA RandomForest
 RandomForest_model_pca = trainClassifier_RandomForest(Training);
 RandomForest_label_pca = RandomForest_model_pca.predictFcn(validation_predictors);
 figure(4)
-plotconfusion(RandomForest_label_pca',validation_response','Subject xx, RandomForest Model, pca=15, validationdata - ');
+plotconfusion(RandomForest_label_pca',validation_response','Subject 2, RandomForest Model, pca=30, validationdata - ');
 
 %% Confusionmatrix for both PCA and RandomForest
 figure(5)
 subplot(2,1,1)
 cm_forset = confusionchart(validation_response,RandomForest_label_pca);
-cm_forset.Title = 'Subject xx, Confusionmatrix using RandomForest Model, pca=15';
+cm_forset.Title = 'Subject 2, Confusionmatrix using RandomForest Model, pca=30';
 cm_forset.RowSummary = 'row-normalized';
 cm_forset.ColumnSummary = 'column-normalized';
 subplot(2,1,2)
 cm_RUSBoost = confusionchart(validation_response,RUSBoost_label_pca);
-cm_RUSBoost.Title = 'Subject xx, Confusionmatrix using RUSBoost Model, pca=15';
+cm_RUSBoost.Title = 'Subject 2, Confusionmatrix using RUSBoost Model, pca=30';
 cm_RUSBoost.RowSummary = 'row-normalized';
 cm_RUSBoost.ColumnSummary = 'column-normalized';
 
@@ -129,19 +129,19 @@ label_RandomForest = predict(RandomForest_model,ValidationSet(:,1:63));
 label_RUSBoost = predict(RUSBoost_model,ValidationSet(:,1:63));
 
 figure(3)
-plotconfusion(label_RandomForest',ValidationSet.headache','Subject 3, Confusionmatrix using RandomForest Model');
+plotconfusion(label_RandomForest',ValidationSet.headache','Subject 2, Confusionmatrix using RandomForest Model');
 
 figure(4)
-plotconfusion(label_RUSBoost',validation_response','Subject 3, Confusionmatrix using RUSBoost Model')
+plotconfusion(label_RUSBoost',validation_response','Subject 2, Confusionmatrix using RUSBoost Model')
 
 figure(5)
 subplot(2,1,1)
 cm_forset = confusionchart(ValidationSet.headache,label_RandomForest);
-cm_forset.Title = 'Subject 3, Confusionmatrix using RandomForest Model';
+cm_forset.Title = 'Subject 2, Confusionmatrix using RandomForest Model';
 cm_forset.RowSummary = 'row-normalized';
 cm_forset.ColumnSummary = 'column-normalized';
 subplot(2,1,2)
 cm_RUSBoost = confusionchart(ValidationSet.headache,label_RUSBoost);
-cm_RUSBoost.Title = 'Subject 3, Confusionmatrix using RUSBoost Model';
+cm_RUSBoost.Title = 'Subject 2, Confusionmatrix using RUSBoost Model';
 cm_RUSBoost.RowSummary = 'row-normalized';
 cm_RUSBoost.ColumnSummary = 'column-normalized';
