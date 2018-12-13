@@ -2,12 +2,15 @@
 Training.hour = hour(Training.hour);
 ValidationSet.hour = hour(ValidationSet.hour);
 Test_set.hour = hour(Test_set.hour);
-%% Creating trainingset and validationset
+%% Creating trainingset and validationset and testset
 train_predictors = Training(:,1:63);
 train_response = Training.headache;
 
 validation_predictors = ValidationSet(:,1:63);
 validation_response = ValidationSet.headache;
+
+test_predictors = Test_set(:,1:63);
+test_response = Test_set.headache;
 %% Classification
 
 % RUSBoost
@@ -60,24 +63,24 @@ title('Algorithm Comparison')
 RUSBoost_model_pca = trainClassifier_RUSBoost(Training);
 RUSBoost_label_pca = RUSBoost_model_pca.predictFcn(validation_predictors);
 figure(3)
-plotconfusion(RUSBoost_label_pca',validation_response','Subject 3, RUSBoost Model, pca=30, validationdata - ')
+plotconfusion(RUSBoost_label_pca',validation_response','Subject 3, RUSBoost Model, pca=5, validationset - ')
 
 %% PCA RandomForest
 RandomForest_model_pca = trainClassifier_RandomForest(Training);
 RandomForest_label_pca = RandomForest_model_pca.predictFcn(validation_predictors);
 figure(4)
-plotconfusion(RandomForest_label_pca',validation_response','Subject 3, RandomForest Model, pca=30, validationdata - ');
+plotconfusion(RandomForest_label_pca',validation_response','Subject 3, RandomForest Model, pca=5, validationset - ');
 
 %% Confusionmatrix for both PCA and RandomForest
 figure(5)
 subplot(2,1,1)
 cm_forset = confusionchart(validation_response,RandomForest_label_pca);
-cm_forset.Title = 'Subject 3, Confusionmatrix using RandomForest Model, pca=30';
+cm_forset.Title = 'Subject 3, Confusionmatrix using RandomForest Model, pca=5, validationset';
 cm_forset.RowSummary = 'row-normalized';
 cm_forset.ColumnSummary = 'column-normalized';
 subplot(2,1,2)
 cm_RUSBoost = confusionchart(validation_response,RUSBoost_label_pca);
-cm_RUSBoost.Title = 'Subject 3, Confusionmatrix using RUSBoost Model, pca=30';
+cm_RUSBoost.Title = 'Subject 3, Confusionmatrix using RUSBoost Model, pca=5, validationset';
 cm_RUSBoost.RowSummary = 'row-normalized';
 cm_RUSBoost.ColumnSummary = 'column-normalized';
 
