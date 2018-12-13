@@ -1,5 +1,5 @@
 function urineOutput = urineOutput(heartrate,fluidBalance)
-urineMaxPrDay = 4000;
+urineMaxPrDay = 15000;
 urineMinPrDay = 500;
 urineMax = dayToMinute(urineMaxPrDay);
 urineMin = dayToMinute(urineMinPrDay);

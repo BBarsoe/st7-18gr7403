@@ -83,16 +83,17 @@ cm_RUSBoost.ColumnSummary = 'column-normalized';
 
 %% Predictor Importance on RUSBoost
 imp_RUSBoost = predictorImportance(RUSBoost_model);
-figure(1)
+figure('Renderer', 'painters', 'Position', [10 10 600 300],'PaperSize',[15 8])
 bar(imp_RUSBoost);
 grid on;
-title('Predictor Importance at RUSBoost model at training data');
+title({'Predictor Importance using RUSBoost model on training data for subject 1',' '});
 xlabel('Predictors');
 ylabel('Predictor importance estimates');
 h =  gca;
-h.XTick = 1:1:63;
-h.XTickLabel = Training.Properties.VariableNames; %Denne skal rettes til, hvis plottet laves for et udvalgt antal features.
-h.XTickLabelRotation = 45;
+h.XTick = [1 5 10 15 20 25 30 35 40 45 50 55 60 63];
+h.XMinorTick = 'on';
+%h.XTickLabel = Training.Properties.VariableNames; %Denne skal rettes til, hvis plottet laves for et udvalgt antal features.
+%h.XTickLabelRotation = 45;
 
 %% Create table of important predictors
 imp_RUSBoost_table = table(train_predictors.fluidmodel); %Ikke færdig
@@ -104,17 +105,67 @@ RUSBoost_model = fitcensemble(imp_RUSBoost_table,train_response,...
     'ClassNames', [0; 1]);
 %% Predictor Importance on RandomForest
 imp_RandomForest = predictorImportance(RandomForest_model);
-figure(2)
+figure('Renderer', 'painters', 'Position', [10 10 600 300],'PaperSize',[16 8])
 bar(imp_RandomForest);
 grid on;
-title('Predictor Importance at RandomForest model at training data');
+title('Predictor Importance using RandomForest model on training data for subject 1');
 xlabel('Predictors');
 ylabel('Predictor importance estimates');
 h =  gca;
-h.XTick = 1:1:63;
-h.XTickLabel = Training.Properties.VariableNames; %Denne skal rettes til, hvis plottet laves for et udvalgt antal features.
-h.XTickLabelRotation = 45;
+h.XTick = [1 5 10 15 20 25 30 35 40 45 50 55 60 63];
+h.XMinorTick = 'on';
+%h.XTickLabel = Training.Properties.VariableNames; %Denne skal rettes til, hvis plottet laves for et udvalgt antal features.
+%h.XTickLabelRotation = 45;
+%% Predictor Importance on RandomForest's and RUSBoost's two best predictors vs mean,std
+imp_RandomForest = predictorImportance(RandomForest_model);
+max_imp_RandomForest = imp_RandomForest;
+RF_max1 = max(max_imp_RandomForest);
+max_imp_RandomForest(max_imp_RandomForest==RF_max1) = [];
+RF_max2 = max(max_imp_RandomForest);
+max_imp_RandomForest(max_imp_RandomForest==RF_max2) = [];
+RandomForest_mean = mean(max_imp_RandomForest);
+RandomForest_std = std(max_imp_RandomForest);
 
+imp_RUSBoost = predictorImportance(RUSBoost_model);
+max_imp_RUSBoost = imp_RUSBoost;
+RB_max1 = max(max_imp_RUSBoost);
+max_imp_RUSBoost(max_imp_RUSBoost==RB_max1) = [];
+RB_max2 = max(max_imp_RUSBoost);
+max_imp_RUSBoost(max_imp_RUSBoost==RB_max2) = [];
+RUSBoost_mean = mean(max_imp_RUSBoost);
+RUSBoostt_std = std(max_imp_RUSBoost);
+figure('Renderer', 'painters', 'Position', [10 10 300 300],'PaperSize',[8 8])
+subplot(1,2,1)
+hold on
+bar(1:3,[RF_max1 RF_max2 RandomForest_mean])
+errorbar(3,[RandomForest_mean],[RandomForest_std], '.');
+grid on;
+title({'RF for subject 2',' '});
+xlabel('Predictors');
+ylabel('Predictor importance estimates');
+h =  gca;
+h.XTick = [1 2 3];
+h.XTickLabel = [{'Sleep','Fluid','Other'}];
+h.XLim = [0.5 3.5];
+h.YLim = [0 RF_max1+1/5*RF_max1];
+h.XTickLabelRotation = 45;
+subplot(1,2,2)
+hold on
+bar(1:3,[RB_max1 RB_max2 RUSBoost_mean])
+errorbar(3,[RUSBoost_mean],[RUSBoostt_std], '.');
+grid on;
+title({'RB for subject 2',' '});
+xlabel('Predictors');
+ylabel('Predictor importance estimates');
+h =  gca;
+h.XTick = [1 2 3];
+h.XTickLabel = [{'Sleep','Fluid','Other'}];
+h.XLim = [0.5 3.5];
+h.YLim = [0 RB_max1+1/5*RB_max1];
+h.YAxis.Exponent = -3;
+h.XTickLabelRotation = 45;
+%h.XTickLabel = Training.Properties.VariableNames; %Denne skal rettes til, hvis plottet laves for et udvalgt antal features.
+%h.XTickLabelRotation = 45;
 %% Create table of important predictors
 imp_RUSBoost_table = table(train_predictors.fluidmodel,train_predictors.sleepaverage,train_predictors.hour,train_predictors.heart_diff_movmin,train_predictors.heart_movstd_2h_delay_5h,train_predictors.heart_movmin_1h,train_predictors.heart_diff_movmax,train_predictors.heart_movmean_2h_delay_5h,train_predictors.steps_movmax,train_predictors.step_movmean_2h_delay_5h,train_predictors.step_movstd_2h_delay_5h,train_predictors.heart_movmax_1h,train_predictors.heart_movmedian_1h,train_predictors.heart_movmean_15m_delay_1h,train_predictors.heart_movstd_1h); 
 RandomForest_model = fitcensemble(...

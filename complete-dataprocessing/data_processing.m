@@ -7,9 +7,10 @@
 addpath(genpath('data'));
 addpath(genpath('water-model'));
 %% Choose subject
-prompt = 'Which subject would you like to import data for? /n Choose 1 2 or 3 /n';
+prompt = ['Which subject would you like to import data for?\nChoose 1 2 or 3\n'];
 subjectNumber = input(prompt);
 clear prompt
+clc
 switch subjectNumber
     case 1
         [rawSteps, rawHeart, rawSleep, rawFluid, rawHeadache] = importSubject1();
@@ -249,14 +250,14 @@ delay_heart_diff_15m = delayseq(heart_diff(2:end),15);
 delay_heart_diff_1h = delayseq(heart_diff(2:end),60);
 delay_heart_diff_5h = delayseq(heart_diff(2:end),300);
 % Moving at delay features
-heart_movstd_1m_delay_5m = movstd(delay_heart_5m,1); %Tilføjet
-heart_movstd_5m_delay_15m = movstd(delay_heart_15m,5); %Tilføjet
-heart_movstd_15m_delay_1h = movstd(delay_heart_1h,15); %Tilføjet
-heart_movstd_2h_delay_5h = movstd(delay_heart_5h,120); %Tilføjet
-heart_movmean_1m_delay_5m = movmean(delay_heart_5m,1); %Tilføjet
-heart_movmean_5m_delay_15m = movmean(delay_heart_15m,5); %Tilføjet
-heart_movmean_15m_delay_1h = movmean(delay_heart_1h,15); %Tilføjet
-heart_movmean_2h_delay_5h = movmean(delay_heart_5h,120); %Tilføjet
+heart_movstd_1m_delay_5m = movstd(delay_heart_5m,1);
+heart_movstd_5m_delay_15m = movstd(delay_heart_15m,5);
+heart_movstd_15m_delay_1h = movstd(delay_heart_1h,15);
+heart_movstd_2h_delay_5h = movstd(delay_heart_5h,120);
+heart_movmean_1m_delay_5m = movmean(delay_heart_5m,1);
+heart_movmean_5m_delay_15m = movmean(delay_heart_15m,5);
+heart_movmean_15m_delay_1h = movmean(delay_heart_1h,15);
+heart_movmean_2h_delay_5h = movmean(delay_heart_5h,120);
 
 %% features for steps
 steps_diff = diff(stepsData.value);

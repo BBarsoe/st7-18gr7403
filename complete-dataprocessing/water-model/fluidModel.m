@@ -93,4 +93,6 @@ end
 
 S = startTime:minutes(1):endTime;
 fluidModel = table(S,bodyWaterVolume);
+figure(1)
+plot(S,bodyWaterVolume)
 end
