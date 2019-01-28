@@ -221,6 +221,11 @@ end
 % Movingsum, last seven days
 sleepingAverageData.value = movsum(isSleepingData.value,10080)/7/60; %In hours
 
+res = [1:length(sleepingAverageData.timestamp)];
+a = zeros(length(res),1);
+for i = 1:length(res)
+   a(i) = awakeness(res(i)-1,sleepingAverageData,rawSleep);
+end
 %% features for heart
 window_size_1h = 60;
 window_size_15m = 15;
@@ -356,7 +361,9 @@ featuresData = table(...
     step_movmean_15m_delay_1h(1:end-2),...
     step_movmean_2h_delay_5h(1:end-2),...
     fluidModelResult.value(1:end-2),...
+    a(1:end-2),...
     headacheData.value(1:end-2));
+    
 featuresData.Properties.VariableNames{1} = 'hour';
 featuresData.Properties.VariableNames{2} = 'heart';
 featuresData.Properties.VariableNames{3} = 'heart_diff'; 
@@ -431,7 +438,8 @@ featuresData.Properties.VariableNames{61} ='step_movmean_15m_delay_1h';
 featuresData.Properties.VariableNames{62} ='step_movmean_2h_delay_5h';
 featuresData.Properties.VariableNames{63} ='fluidmodel';
 % Headache
-featuresData.Properties.VariableNames{64} = 'headache';
+featuresData.Properties.VariableNames{64} = 'awakeness';
+featuresData.Properties.VariableNames{65} = 'headache';
 
 % Data_table(1:5,:) =[]; % Delete the first 5 miniuts of data 
 % Data_table(1:15,:) =[]; % Delete the first 15 miniuts of data 
